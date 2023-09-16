@@ -1,0 +1,12 @@
+
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block extra_css %} 
+<link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+{% endblock %}
+
+{% block title %}index{% endblock %}
+{% block content %} 
+    <h1>Bienvenido al index</h1>
+{% endblock %}

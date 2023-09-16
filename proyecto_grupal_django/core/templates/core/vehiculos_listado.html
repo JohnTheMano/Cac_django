@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+{% block title %}Listado Vehículos{% endblock %}
+{% block content %} 
+<h1>
+    Listado de Vehículos 
+</h1>
+<p>"Parrafo"</p>
+<ul>
+    {% for nombre in listado_vehiculos %}
+        <li>
+            <p>Modelo: {{nombre | upper}}</p> </li>
+    {% endfor %}
+</ul>
+{% endblock %}

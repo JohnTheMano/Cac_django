@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Plantilla base sitio proyecto{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'core/css/base.css' %}">
+    {% block extra_css %} {% endblock %}
+</head>
+<body>
+    <header>
+        <h1>Titulo del sitio</h1>
+        <h2>{% block section_title %} {% endblock%}</h2>
+
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'index' %}">Index</a></li>
+            <li><a href="{% url 'vehiculos_todos'%}">Vehículos</a></li>
+            <li><a href="{% url 'nosotros' %}">Nosotros</a></li>
+            <li><a href="{% url 'ficha_vehiculo'%}">Nuevo ingreso</a></li>
+        </ul>
+    </nav>
+    <main>
+        {% block content %} {% endblock %}
+    </main>
+    <footer>
+        {% include "core/footer.html" %}
+    </footer>
+</body>
+</html>
