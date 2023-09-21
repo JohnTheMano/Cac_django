@@ -26,10 +26,32 @@ def vehiculos_todos(request):
      return render( request ,'core/vehiculos_listado.html',context)
 
 def vehiculos_anio(request, anio):
-    return HttpResponse(
-       f"""<h1>Vehículos del año: {anio}</h1>"""
-    )
+     
+   
+    vehiculos = [
+        {'nombre': 'Renault Sandero Stepway', 'año': 2020},
+        {'nombre': 'Peugeot 208', 'año': 2021},
+        {'nombre': 'Volkswagen Tuareg', 'año': 2021},
+        {'nombre': 'Mitsubishi Colt', 'año': 2023},
+        {'nombre': 'Ford ka', 'año': 2023}]
 
+   
+    vehiculos_filtrados = []
+
+    
+    for vehiculo in vehiculos:
+        
+        if vehiculo.get('año') == int(anio):
+            
+            vehiculos_filtrados.append(vehiculo)
+
+    context = {
+        'listado_vehiculos': vehiculos_filtrados,
+        'anio_parametro': anio
+    }
+
+    return render(request, 'core/vehiculos_listado.html', context)
+    
 def vehiculos_estado(request,estado):
     return HttpResponse(
        f"""<h1>Estado del vehículo: {estado}</h1>"""
