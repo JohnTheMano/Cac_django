@@ -15,15 +15,33 @@ def nombre_usuario(request,usuario):
        f"""<h1>Bienvenido: {usuario}!</h1>"""
     )
 
-def vehiculos_todos(request): 
-     context = {
-         'listado_vehiculos': [
-              'Renault Sandero Stepway 2020',
-              'Peugeot 208 2021',
-              'volkswagen Tuareg 2021',
-              'mitsubishi Colt 2023']
-    }   
-     return render( request ,'core/vehiculos_listado.html',context)
+# def vehiculos_todos(request): 
+#      context = {
+#          'listado_vehiculos': [
+#               'Renault Sandero Stepway 2020',
+#               'Peugeot 208 2021',
+#               'volkswagen Tuareg 2021',
+#               'mitsubishi Colt 2023']
+#     }   
+#      return render( request ,'core/vehiculos_listado.html',context)
+
+def vehiculos_todos(request):
+     
+   
+    vehiculos = [
+        {'nombre': 'Renault Sandero Stepway', 'año': 2020},
+        {'nombre': 'Peugeot 208', 'año': 2021},
+        {'nombre': 'Volkswagen Tuareg', 'año': 2021},
+        {'nombre': 'Mitsubishi Colt', 'año': 2023},
+        {'nombre': 'Ford ka', 'año': 2023}]
+
+ 
+    context = {
+            'listado_vehiculos': vehiculos
+            
+        }
+
+    return render(request, 'core/vehiculos_listado.html', context)
 
 def vehiculos_anio(request, anio):
      
@@ -62,6 +80,6 @@ def vehiculos_ficha(request):
           'nombre_vehículo': 'Sandero Stepway',
           'marca':'Renault',
           'anio':'2020',
-          'entrega_inmediata':True,
+          'entrega_inmediata':False,
      }
      return render( request ,'core/ficha_vehiculo.html',context )
