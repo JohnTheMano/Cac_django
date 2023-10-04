@@ -10,4 +10,5 @@ urlpatterns = [
     path('vehiculos/disponibles', views.vehiculos_estado, {'estado': 'disponible'}, name="vehiculos_disponible"),
     path('vehiculos/vendidos', views.vehiculos_estado, {'estado': 'vendido'}, name="vehiculos_vendido"),
     path('vehiculos/ficha/', views.vehiculos_ficha, name='ficha_vehiculo'),
+    path('vehiculos/auto/', views.registrar_venta, name='registrar_auto'),
     ]

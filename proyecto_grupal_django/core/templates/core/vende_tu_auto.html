@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% block title %}Listado Vehículos{% endblock %}
+{% block content %} 
+<h1>
+    Registrá tu auto 
+</h1>
+<form method="post" action="{% url 'registrar_auto' %}">
+    {% csrf_token %}
+    {{ venta_form.as_p }}
+    <button type="submit" class="btn btn-primary">Enviar</button>
+</form>
+{% endblock %}

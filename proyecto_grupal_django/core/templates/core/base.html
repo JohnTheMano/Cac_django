@@ -8,8 +8,12 @@
     <title>{% block title %}Plantilla base sitio proyecto{% endblock %}</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+
     
-    {% block extra_css %} {% endblock %}
+    <!-- {% block extra_css %} {% endblock %} -->
 </head>
 <body>
     <header>
@@ -41,7 +45,8 @@
               <div class="navbar-nav">
                 <a class="nav-link active" aria-current="page" href="{% url 'vehiculos_todos'%}">Vehículos</a>
                 <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
-                <a class="nav-link" href="{% url 'ficha_vehiculo'%}">Nuevo ingreso</a>
+                <a class="nav-link" href="{% url 'ficha_vehiculo'%}">Oferta del Día</a>
+                <a class="nav-link" href="{% url 'registrar_auto'%}">Vendé tu auto</a>
                 
                 <!-- <a class="nav-link disabled" aria-disabled="true">Disabled</a> -->
               </div>

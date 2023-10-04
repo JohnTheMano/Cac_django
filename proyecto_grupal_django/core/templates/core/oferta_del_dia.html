@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+
+{% block extra_css %} 
+<link rel="stylesheet" href="{% static 'core/css/ficha_vehiculo.css' %}">
+{% endblock %}
+
+{% block title %}Ficha del vehículo{% endblock %}
+{% block content %} 
+<h1>
+    Oferta del día
+</h1>
+<ul>
+    <li>Modelo: {{nombre_vehículo}}</li>
+    <li>Marca: {{marca}}</li>
+    <li>Año: {{anio}}</li>
+</ul>
+<p>"Acá iría la Descripción del vehículo"</p>
+
+{% if entrega_inmediata %}
+    <p>
+        <h3>Entrega inmediata!</h3>
+    </p>
+{% else%} 
+    <p>
+        <h3>Entrega a los 30 días</h3>
+    </p>
+{% endif %}
+{% endblock %}
+
