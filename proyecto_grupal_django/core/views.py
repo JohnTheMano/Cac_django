@@ -1,5 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.http import HttpResponse
+from django.urls import reverse
+from datetime import datetime
+from .forms import  NuevoAuto
+
 
 # Create your views here.
 def index(request):
@@ -82,4 +87,25 @@ def vehiculos_ficha(request):
           'anio':'2020',
           'entrega_inmediata':False,
      }
-     return render( request ,'core/ficha_vehiculo.html',context )
+     return render( request ,'core/oferta_del_dia.html',context )
+ 
+def registrar_venta(request):
+    
+    if request.method == "POST":
+    # Creo la instancia del formulario con los datos cargados en pantalla
+        formulario =  NuevoAuto(request.POST)
+    # Valido y proceso los datos.
+        if formulario.is_valid():
+            messages.info(request,"consulta enviada con exito")
+            #dar de alta info
+            return redirect(reverse("registrar_auto"))
+            
+    else:
+    # Creo el formulario vacío con los valores por defecto
+        formulario =  NuevoAuto()
+    
+    context = {
+        'venta_form' : formulario
+    }
+    
+    return render( request ,'core/vende_tu_auto.html',context )
