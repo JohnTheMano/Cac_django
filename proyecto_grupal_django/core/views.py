@@ -96,7 +96,9 @@ def registrar_venta(request):
         formulario =  NuevoAuto(request.POST)
     # Valido y proceso los datos.
         if formulario.is_valid():
-            messages.info(request,"consulta enviada con exito")
+            print(formulario.cleaned_data)
+            print(messages.info(request,"consulta enviada con exito"))
+            print(messages.get_messages(request))
             #dar de alta info
             return redirect(reverse("registrar_auto"))
             

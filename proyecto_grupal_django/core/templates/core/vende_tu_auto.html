@@ -1,12 +1,37 @@
 {% extends 'core/base.html' %}
-{% block title %}Listado Vehículos{% endblock %}
+
+
+{% block title %}Registra tu auto{% endblock %}
 {% block content %} 
 <h1>
     Registrá tu auto 
 </h1>
-<form method="post" action="{% url 'registrar_auto' %}">
-    {% csrf_token %}
-    {{ venta_form.as_p }}
-    <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
+{% if messages %}
+  <div class="alert alert-success alert-dismissible fade show">
+    
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+
+<div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <form method="post" action="{% url 'registrar_auto' %}" class="form">
+          {% csrf_token %}
+         
+          {{ venta_form.as_p }}
+          
+          <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  
 {% endblock %}
+
+
