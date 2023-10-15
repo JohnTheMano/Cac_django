@@ -15,6 +15,7 @@
     {% block extra_css %} {% endblock %}
 </head>
 <body>
+  
     <header>
         {% block section_title %} 
             <div class="container text-center my-4">
@@ -31,28 +32,8 @@
         {% endblock %}
 
     </header>
-    
-    <div class="d-flex justify-content-center align-items-center">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'index' %}">Index</a> 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-      
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="{% url 'vehiculos_todos'%}">Vehículos</a>
-                <a class="nav-link" href="{% url 'nosotros' %}">Nosotros</a>
-                <a class="nav-link" href="{% url 'ficha_vehiculo'%}">Oferta del Día</a>
-                <a class="nav-link" href="{% url 'registrar_auto'%}">Vendé tu auto</a>
-                
-                <!-- <a class="nav-link disabled" aria-disabled="true">Disabled</a> -->
-              </div>
-            </div>
-          </div>
-        </nav>
-      </div>
+    {% include 'core/navbar.html' %}
+   
       
     <main>
         {% block content %} {% endblock %}
