@@ -1,16 +1,22 @@
 {% extends 'core/base.html' %}
 {% block title %}Listado Vehículos{% endblock %}
-{% block content %} 
-<h1>
-    Listado de Vehículos 
-</h1>
-<p>"Parrafo"</p>
-<ul>
-    {% for nombre in listado_vehiculos %}
-        <li> 
-            <p>Modelo: {{nombre.nombre | upper}}</p> 
-            <p>Año: {{nombre.año}}</p>
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">Listado de Vehículos</h1>
+    <ul class="list-group">
+      {% for vehiculo in listado_vehiculos %}
+        <li class="list-group-item">
+            <h4>{{ vehiculo.nombre}} - {{ vehiculo.año }}</h4>
+          <h4>{{ vehiculo.marca }} - {{ vehiculo.modelo }}</h4>
+          <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
+          <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
+          <p><strong>Precio:</strong> ${{ vehiculo.precio }}</p>
+          <p><strong>Descripción:</strong> {{ vehiculo.descripcion }}</p>
+          <p><strong>Vendedor:</strong> {{ vehiculo.vendedor }}</p>
         </li>
-    {% endfor %}
-</ul>
+      {% empty %}
+        <li class="list-group-item text-muted">No hay vehículos disponibles.</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}

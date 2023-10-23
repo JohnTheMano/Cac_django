@@ -4,6 +4,10 @@ from django.http import HttpResponse
 from django.urls import reverse
 from datetime import datetime
 from .forms import  NuevoAuto
+from .models import Vendedor, Vehiculo
+from .forms import AltaVendedorModelForm
+from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 
 
 # Create your views here.
@@ -20,15 +24,6 @@ def nombre_usuario(request,usuario):
        f"""<h1>Bienvenido: {usuario}!</h1>"""
     )
 
-# def vehiculos_todos(request): 
-#      context = {
-#          'listado_vehiculos': [
-#               'Renault Sandero Stepway 2020',
-#               'Peugeot 208 2021',
-#               'volkswagen Tuareg 2021',
-#               'mitsubishi Colt 2023']
-#     }   
-#      return render( request ,'core/vehiculos_listado.html',context)
 
 def vehiculos_todos(request):
      
@@ -36,15 +31,15 @@ def vehiculos_todos(request):
     vehiculos = [
         {'nombre': 'Renault Sandero Stepway', 'año': 2020},
         {'nombre': 'Peugeot 208', 'año': 2021},
-        {'nombre': 'Volkswagen Tuareg', 'año': 2021},
-        {'nombre': 'Mitsubishi Colt', 'año': 2023},
+       {'nombre': 'Volkswagen Tuareg', 'año': 2021},
+       {'nombre': 'Mitsubishi Colt', 'año': 2023},
         {'nombre': 'Ford ka', 'año': 2023}]
 
  
     context = {
-            'listado_vehiculos': vehiculos
+           'listado_vehiculos': vehiculos
             
-        }
+         }
 
     return render(request, 'core/vehiculos_listado.html', context)
 
@@ -111,3 +106,48 @@ def registrar_venta(request):
     }
     
     return render( request ,'core/vende_tu_auto.html',context )
+
+
+class VendedorCreateView(CreateView):
+    model = Vendedor
+    form_class = AltaVendedorModelForm
+    template_name='core/alta_vendedor.html'
+    success_url='vendedores'
+    
+    #fields = '__all__'
+    
+    
+class VendedorListView(ListView):
+    model = Vendedor
+    context_object_name = 'listado_vendedor'
+    template_name='core/vendedor_listado.html'
+    
+class VendedorDeleteView():
+    pass
+    
+#listview Vehiculos
+"""
+class VehiculosListView(ListView):
+    
+    vehiculos = [
+        {'nombre': 'Renault Sandero Stepway', 'año': 2020},
+        {'nombre': 'Peugeot 208', 'año': 2021},
+        {'nombre': 'Volkswagen Tuareg', 'año': 2021},
+        {'nombre': 'Mitsubishi Colt', 'año': 2023},
+        {'nombre': 'Ford ka', 'año': 2023}]
+
+ 
+    context = {
+            'listado_vehiculos': vehiculos
+            
+        }
+
+    
+
+    model= Vehiculo
+    template_name='core/vehiculos_listado.html'
+    context_object_name = 'listado_vehiculos'
+    success_url='vehiculos'
+       
+   
+"""

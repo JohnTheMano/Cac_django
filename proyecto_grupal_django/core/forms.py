@@ -1,5 +1,9 @@
-from django import forms
+from typing import Any
+from django import forms 
 from django.core.exceptions import ValidationError
+from .models import Vendedor
+
+
 
 class NuevoAuto(forms.Form):
     listadoMarcas = [
@@ -61,3 +65,23 @@ class NuevoAuto(forms.Form):
         if precio <= 0:
             raise ValidationError("El precio debe ser un número positivo")
         return precio
+
+
+class AltaVendedorModelForm(forms.ModelForm):
+     class Meta:
+        model = Vendedor
+        #exclude = ['email']
+        
+        fields = '__all__'
+      
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+            'apellido': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Apellido'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Email'}),
+            'dni': forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'DNI'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Teléfono'}),
+            'ubicacion': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Ubicación'}),
+            'financiamiento_ofrecido': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+            'licencia_vendedor': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Licencia de vendedor'}),
+            'tipo_vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+        }
