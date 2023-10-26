@@ -11,6 +11,11 @@
           <p><strong>DNI:</strong> {{ vendedor.dni }}</p>
           <p><strong>Email:</strong> {{ vendedor.email }}</p>
           <p><strong>Financiamiento Ofrecido:</strong> {{ vendedor.financiamiento_ofrecido }}</p>
+          <form method="post">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="Eliminar">
+            
+          </form>
         </li>
       {% empty %}
         <li class="list-group-item">No hay vendedores cargados disponibles.</li>

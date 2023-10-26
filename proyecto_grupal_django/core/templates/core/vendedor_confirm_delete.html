@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% block title %}Confirmar eliminación{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">Confirmar eliminación</h1>
+    <p>¿Estás seguro de que deseas eliminar al vendedor {{ vendedor.nombre }} {{ vendedor.apellido }}?</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <input type="submit" class="btn btn-danger" value="Eliminar">
+    </form>
+
+    <a href="{% url 'vendedor-list' %}" class="btn btn-secondary">Cancelar</a>
+  </div>
+{% endblock %}

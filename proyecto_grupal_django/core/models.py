@@ -56,8 +56,10 @@ class Comprador(Persona):
     )
    
     tipo_comprador = models.CharField(max_length=50, choices=[("Persona", "Persona"), ("Empresa", "Empresa")])
-    #relacion muchos a muchos
+    
+    #----------------------relacion muchos a muchos-------------------------------------
     vehiculos_favoritos = models.ManyToManyField(Vehiculo, related_name='compradores_favoritos')
+    
     preferencias_financiamiento = models.CharField(
         max_length=30,
         choices=PREFERENCIAS_FINANCIAMIENTO_CHOICES,

@@ -8,6 +8,8 @@ from .models import Vendedor, Vehiculo
 from .forms import AltaVendedorModelForm
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView
 
 
 # Create your views here.
@@ -122,8 +124,10 @@ class VendedorListView(ListView):
     context_object_name = 'listado_vendedor'
     template_name='core/vendedor_listado.html'
     
-class VendedorDeleteView():
-    pass
+"""class VendedorDeleteView():
+    model = Vendedor
+    template_name = 'core/vendedor_confirm_delete.html'
+    success_url = reverse_lazy('vendedor-list')"""
     
 #listview Vehiculos
 """
