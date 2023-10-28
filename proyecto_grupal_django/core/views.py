@@ -9,7 +9,7 @@ from .forms import AltaVendedorModelForm
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView
+#from django.views.generic import DeleteView
 
 
 # Create your views here.
