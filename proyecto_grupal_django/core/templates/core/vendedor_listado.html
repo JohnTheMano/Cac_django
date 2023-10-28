@@ -13,7 +13,8 @@
           <p><strong>Financiamiento Ofrecido:</strong> {{ vendedor.financiamiento_ofrecido }}</p>
           <form method="post">
             {% csrf_token %}
-            <input type="submit" class="btn btn-danger" value="Eliminar">
+            
+            <a href="{% url 'vendedor_eliminar' vendedor.pk %}" class="btn btn-danger">Eliminar</a>
             
           </form>
         </li>

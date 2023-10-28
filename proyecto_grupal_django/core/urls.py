@@ -16,6 +16,6 @@ urlpatterns = [
     path('vehiculos/alta_vendedor', views.VendedorCreateView.as_view(), name="alta_vendedor"),
     #path('vehiculos/', views.VehiculosListView.as_view(), name='vehiculos_todos'),
     path('vehiculos/vendedores', views.VendedorListView.as_view(), name="vendedores_listado"),
-    #path('vendedor/<int:pk>/delete/', views.VendedorDeleteView.as_view(), name='vendedor-delete'),
+    path('vendedor/delete/<int:pk>', views.VendedorDeleteView.as_view(), name='vendedor_eliminar'),
     
     ]

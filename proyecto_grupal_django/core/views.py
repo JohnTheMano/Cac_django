@@ -6,10 +6,10 @@ from datetime import datetime
 from .forms import  NuevoAuto
 from .models import Vendedor, Vehiculo
 from .forms import AltaVendedorModelForm
-from django.views.generic.edit import CreateView
-from django.views.generic.list import ListView
+from django.views.generic import CreateView, ListView, DeleteView
+#from django.views.generic.list import ListView
 from django.urls import reverse_lazy
-#from django.views.generic import DeleteView
+
 
 
 # Create your views here.
@@ -123,11 +123,13 @@ class VendedorListView(ListView):
     model = Vendedor
     context_object_name = 'listado_vendedor'
     template_name='core/vendedor_listado.html'
+    #queryset= Vendedor.objects.filter(tipo_vendedor= "Persona")
     
-"""class VendedorDeleteView():
+class VendedorDeleteView(DeleteView):
     model = Vendedor
-    template_name = 'core/vendedor_confirm_delete.html'
-    success_url = reverse_lazy('vendedor-list')"""
+    #el nombre de la plantilla es por defecto de django
+    template_name = 'core/vendedor_confirm_delete.html' 
+    success_url = reverse_lazy('vendedores_listado')
     
 #listview Vehiculos
 """
