@@ -1,7 +1,7 @@
 from typing import Any
 from django import forms 
 from django.core.exceptions import ValidationError
-from .models import Vendedor
+from .models import Vendedor, Comprador, Transaccion
 
 
 
@@ -84,4 +84,26 @@ class AltaVendedorModelForm(forms.ModelForm):
             'financiamiento_ofrecido': forms.Select(attrs={'class': 'form-control form-control-sm'}),
             'licencia_vendedor': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Licencia de vendedor'}),
             'tipo_vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+        }
+        
+        
+class AltaCompradoModelForm(forms.ModelForm):
+     class Meta:
+        model = Comprador
+        #exclude = ['email']
+        
+        fields = '__all__'
+      
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+            'apellido': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Apellido'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Email'}),
+            'dni': forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'DNI'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Teléfono'}),
+            'ubicacion': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Ubicación'}),
+            'tipo_comprador': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+            'preferencias_financiamiento': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+            'vehiculos_favoritos': forms.Select(attrs={'class': 'form-control form-control-sm', 'required': False}),
+            
+            
         }

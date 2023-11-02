@@ -46,6 +46,8 @@ class Vehiculo(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     descripcion = models.TextField()
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
+    def __str__(self):
+        return f" {self.marca} - {self.modelo} - {self.anio}"
 
 class Comprador(Persona):
     
@@ -58,13 +60,15 @@ class Comprador(Persona):
     tipo_comprador = models.CharField(max_length=50, choices=[("Persona", "Persona"), ("Empresa", "Empresa")])
     
     #----------------------relacion muchos a muchos-------------------------------------
-    vehiculos_favoritos = models.ManyToManyField(Vehiculo, related_name='compradores_favoritos')
+    vehiculos_favoritos = models.ManyToManyField(Vehiculo, related_name='compradores_favoritos', blank=True)
     
     preferencias_financiamiento = models.CharField(
         max_length=30,
         choices=PREFERENCIAS_FINANCIAMIENTO_CHOICES,
         
     )
+    def __str__(self):
+        return f" {self.nombre} - {self.apellido} - {self.tipo_comprador}"
     
 
 class Transaccion(models.Model):

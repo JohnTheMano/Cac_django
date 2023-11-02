@@ -4,9 +4,9 @@ from django.http import HttpResponse
 from django.urls import reverse
 from datetime import datetime
 from .forms import  NuevoAuto
-from .models import Vendedor, Vehiculo
-from .forms import AltaVendedorModelForm
-from django.views.generic import CreateView, ListView, DeleteView
+from .models import Vendedor, Vehiculo, Comprador, Transaccion
+from .forms import AltaVendedorModelForm, AltaCompradoModelForm
+from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 #from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
@@ -109,12 +109,12 @@ def registrar_venta(request):
     
     return render( request ,'core/vende_tu_auto.html',context )
 
-
+#------Vendedor----------------------
 class VendedorCreateView(CreateView):
     model = Vendedor
     form_class = AltaVendedorModelForm
     template_name='core/alta_vendedor.html'
-    success_url='vendedores'
+    success_url='vendedores_listado'
     
     #fields = '__all__'
     
@@ -130,6 +130,43 @@ class VendedorDeleteView(DeleteView):
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/vendedor_confirm_delete.html' 
     success_url = reverse_lazy('vendedores_listado')
+    
+class VendedorUpdateView(UpdateView):
+    pass
+
+
+#-------------------COMPRADOR--------------------
+class CompradorCreateView(CreateView):
+    model = Comprador
+    form_class = AltaCompradoModelForm
+    template_name='core/alta_Comprador.html'
+    success_url='compradores_listado'
+    
+class CompradorListView(ListView):
+    model = Comprador
+    context_object_name = 'listado_comprador'
+    template_name='core/comprador_listado.html'
+    #queryset= Vendedor.objects.filter(tipo_vendedor= "Persona")
+
+    
+class CompradorDeleteView(DeleteView):
+    model = Comprador
+    #el nombre de la plantilla es por defecto de django
+    template_name = 'core/comprador_confirm_delete.html' 
+    success_url = reverse_lazy('compradores_listado')
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 #listview Vehiculos
 """
