@@ -103,7 +103,8 @@ class AltaCompradoModelForm(forms.ModelForm):
             'ubicacion': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Ubicación'}),
             'tipo_comprador': forms.Select(attrs={'class': 'form-control form-control-sm'}),
             'preferencias_financiamiento': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-            'vehiculos_favoritos': forms.Select(attrs={'class': 'form-control form-control-sm', 'required': False}),
+            'vehiculos_favoritos': forms.SelectMultiple(attrs={'class': 'form-control form-control-sm'}),
+
             
             
         }
