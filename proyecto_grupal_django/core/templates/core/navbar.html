@@ -23,7 +23,7 @@
                   Vendé tu auto
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="{% url 'registrar_auto'%}">Publicar Auto</a></li>
+                  <li><a class="dropdown-item" href="{% url 'alta_auto' %}">Publicar Auto</a></li>
                   <li><a class="dropdown-item" href="{% url 'alta_vendedor'%}">Registrate como vendedor</a></li>
                   <li><a class="dropdown-item" href="{% url 'vendedores_listado'%}">Listado de vendedores</a></li>
                   <li><hr class="dropdown-divider"></li>
@@ -53,7 +53,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'ficha_vehiculo' %}">Reportes</a>
               </li>
-
+              <!-- <li>
+                <a class="nav-link" href="{% url 'alta_auto' %}">Alta Auto</a>
+              </li> -->
             </ul>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

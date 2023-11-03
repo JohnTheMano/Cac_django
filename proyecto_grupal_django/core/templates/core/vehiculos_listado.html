@@ -13,6 +13,13 @@
           <p><strong>Precio:</strong> ${{ vehiculo.precio }}</p>
           <p><strong>Descripción:</strong> {{ vehiculo.descripcion }}</p>
           <p><strong>Vendedor:</strong> {{ vehiculo.vendedor }}</p>
+          <form method="post">
+            {% csrf_token %}
+            
+            <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
+            
+          </form>
+
         </li>
       {% empty %}
         <li class="list-group-item text-muted">No hay vehículos disponibles.</li>

@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+{% block title %}Confirmar eliminación{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">Confirmar eliminación</h1>
+    <p>¿Estás seguro de que deseas eliminar al Vehículo {{ vehiculo.modelo }} {{ vehiculo.marca }}?</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <p>{{object}}</p>
+      <input type="submit" class="btn btn-danger" value="Eliminar">
+    </form>
+
+    
+  </div>
+{% endblock %}
