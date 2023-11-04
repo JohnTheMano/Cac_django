@@ -8,7 +8,7 @@ class Persona(models.Model):
     nombre = models.CharField(max_length=30)
     apellido = models.CharField(max_length=30)
     email=models.EmailField(max_length=150,verbose_name="Email")
-    dni=models.IntegerField(verbose_name="DNI", unique=True)
+    dni=models.IntegerField(verbose_name="DNI")
     telefono = models.CharField(max_length=15)
     ubicacion = models.CharField(max_length=100)
     

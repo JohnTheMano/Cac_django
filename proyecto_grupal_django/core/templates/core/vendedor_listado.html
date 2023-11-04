@@ -15,8 +15,9 @@
             {% csrf_token %}
             
             <a href="{% url 'vendedor_eliminar' vendedor.pk %}" class="btn btn-danger">Eliminar</a>
-            
+            <a href="{% url 'vendedor_actualizar' vendedor.pk %}" class="btn btn-primary">Editar</a>
           </form>
+         
         </li>
       {% empty %}
         <li class="list-group-item">No hay vendedores cargados disponibles.</li>
