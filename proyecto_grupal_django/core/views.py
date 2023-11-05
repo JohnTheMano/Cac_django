@@ -5,7 +5,7 @@ from django.urls import reverse
 from datetime import datetime
 from .forms import  NuevoAuto
 from .models import Vendedor, Vehiculo, Comprador, Transaccion
-from .forms import AltaVendedorModelForm, AltaCompradoModelForm
+from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoModelForm
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 #from django.views.generic.list import ListView
 from django.urls import reverse_lazy
@@ -175,8 +175,24 @@ class CompradorDeleteView(DeleteView):
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/comprador_confirm_delete.html' 
     success_url = reverse_lazy('compradores_listado')
-    
-    
+
+#-------------------------------VEHICULOS-------------------------
+class VehiculoCreateView(CreateView):
+    model = Vehiculo
+    form_class = AltaVehiculoModelForm
+    template_name='core/alta_auto.html'
+    success_url='vehiculos'
+
+class VehiculosListView(ListView):
+    model = Vehiculo
+    context_object_name = 'listado_vehiculos'
+    template_name='core/vehiculos_listado.html'
+
+class VehiculoDeleteView(DeleteView):
+    model = Vehiculo
+    #el nombre de la plantilla es por defecto de django
+    template_name = 'core/vehiculo_confirm_delete.html' 
+    success_url = reverse_lazy('vehiculos_listado')
 #-------------------------------REGISTRAR LA TRANSACCION-------------------------
 def registrar_compra(request):
     pass
