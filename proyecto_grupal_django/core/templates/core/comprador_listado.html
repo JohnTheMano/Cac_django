@@ -1,0 +1,41 @@
+
+{% extends 'core/base.html' %}
+{% block title %}Listado comprador{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">Listado de Compradores</h1>
+    <div class="row">
+      {% for comprador in listado_comprador %}
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h4 class="card-title">{{ comprador.nombre }} {{ comprador.apellido }}</h4>
+              <p class="card-text"><strong>Tipo de Comprador:</strong> {{ comprador.tipo_comprador }}</p>
+              <p class="card-text"><strong>DNI:</strong> {{ comprador.dni }}</p>
+              <p class="card-text"><strong>Email:</strong> {{ comprador.email }}</p>
+              <p class="card-text"><strong>Vehiculos favoritos:</strong></p>
+              <ul>
+                {% for vehiculo in comprador.vehiculos_favoritos.all %}
+                  <li>{{ vehiculo.marca }}</li>
+                {% empty %}
+                  <li>No hay vehículos favoritos.</li>
+                {% endfor %}
+              </ul>
+              <p class="card-text"><strong>Preferencias de financiamiento:</strong> {{ comprador.preferencias_financiamiento }}</p>
+            </div>
+            <div class="card-footer">
+              <form method="post">
+                {% csrf_token %}
+                <a href="{% url 'comprador_eliminar' comprador.pk %}" class="btn btn-danger">Eliminar</a>
+                <a href="{% url 'comprador_actualizar' comprador.pk %}" class="btn btn-primary">Editar</a>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p>No hay compradores cargados.</p>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+

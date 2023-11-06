@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% block title %}Listado vendedores{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">Listado de Vendedores</h1>
+    <ul class="list-group">
+      {% for vendedor in listado_vendedor %}
+        <li class="list-group-item">
+          <h4>{{ vendedor.nombre }} {{ vendedor.apellido }}</h4>
+          <p><strong>Tipo de Vendedor:</strong> {{ vendedor.tipo_vendedor }}</p>
+          <p><strong>DNI:</strong> {{ vendedor.dni }}</p>
+          <p><strong>Email:</strong> {{ vendedor.email }}</p>
+          <p><strong>Financiamiento Ofrecido:</strong> {{ vendedor.financiamiento_ofrecido }}</p>
+          <form method="post">
+            {% csrf_token %}
+            
+            <a href="{% url 'vendedor_eliminar' vendedor.pk %}" class="btn btn-danger">Eliminar</a>
+            <a href="{% url 'vendedor_actualizar' vendedor.pk %}" class="btn btn-primary">Editar</a>
+          </form>
+         
+        </li>
+      {% empty %}
+        <li class="list-group-item">No hay vendedores cargados disponibles.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
