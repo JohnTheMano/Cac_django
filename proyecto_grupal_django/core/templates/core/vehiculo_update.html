@@ -6,8 +6,8 @@
     <p>¿Estás seguro de que deseas editar el Vehículo {{ vehiculo.modelo }} {{ vehiculo.marca }}?</p>
 
     <form method="post">  
-        {% csrf_token %}  
-        {{ form.as_p }}  
+       {% csrf_token %}  
+       {{ form.as_p }}  
         <input type="submit" value="Save">  
     </form>  
 
