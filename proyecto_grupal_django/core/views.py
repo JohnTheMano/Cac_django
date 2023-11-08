@@ -120,9 +120,9 @@ class VendedorCreateView(CreateView):
 
 class VendedorUpdateView(UpdateView):
     model = Vendedor
-    template_name='core/alta_vendedor.html'
+    template_name='core/vendedor_update.html'
     form_class = AltaVendedorModelForm
-    success_url = reverse_lazy('vendedor_actualizar')
+    success_url = reverse_lazy('vendedores_listado')
 
 
     
@@ -200,6 +200,8 @@ class VehiculoUpdateView(UpdateView):
         "anio", 
         "tipo",
         "precio",
+        "descripcion",
+        "vendedor",
     ] 
     template_name = 'core/vehiculo_update.html' 
     success_url = reverse_lazy('vehiculos_listado')
