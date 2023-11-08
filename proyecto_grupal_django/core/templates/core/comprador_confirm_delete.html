@@ -3,7 +3,7 @@
 {% block content %}
   <div class="container">
     <h1 class="my-4">Confirmar eliminación</h1>
-    <p>¿Estás seguro de que deseas eliminar al Vehículo {{ vehiculo.modelo }} {{ vehiculo.marca }}?</p>
+    <p>¿Estás seguro de que deseas eliminar al vendedor {{ comprador.nombre }} {{ comprador.apellido }}?</p>
 
     <form method="post">
       {% csrf_token %}
@@ -13,8 +13,4 @@
 
     
   </div>
-<<<<<<< HEAD
 {% endblock %}
-=======
-{% endblock %}
->>>>>>> Desarrollo

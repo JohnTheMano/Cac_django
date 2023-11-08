@@ -1,7 +1,7 @@
 from typing import Any
 from django import forms 
 from django.core.exceptions import ValidationError
-from .models import Vendedor,Vehiculo
+from .models import Vendedor
 
 
 
@@ -53,6 +53,8 @@ class NuevoAuto(forms.Form):
         required=True,
         widget=forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Precio'})
     )
+    
+
 
     def clean_Año(self):
         año = self.cleaned_data["Año"]
@@ -65,35 +67,6 @@ class NuevoAuto(forms.Form):
         if precio <= 0:
             raise ValidationError("El precio debe ser un número positivo")
         return precio
-
-
-
-class AltaVehiculoModelForm(forms.ModelForm):
-     class Meta:
-        model = Vehiculo
-        
-        
-        fields = '__all__'
-      
-        widgets = {
-            'marca' : forms.Select(attrs={'class': 'form-control form-control-sm', 'placeholder': 'marca'}),
-            'modelo' : forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'modelo'}),
-            'anio' : forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'año'}),
-            'tipo' : forms.Select(attrs={'class': 'form-control form-control-sm'}),
-            'precio' : forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'precio'}),
-            'descripcion' : forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'descripcion'}),
-            'vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-
-            # 'Precio' : forms.IntegerField(label="Precio",required=True,widget=forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Precio'})),
-            # 'apellido': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Apellido'}),
-            # 'email': forms.EmailInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Email'}),
-            # 'dni': forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'DNI'}),
-            # 'telefono': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Teléfono'}),
-            # 'ubicacion': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Ubicación'}),
-            # 'financiamiento_ofrecido': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-            # 'licencia_vendedor': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Licencia de vendedor'}),
-            # 'tipo_vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-        }
 
 
 class AltaVendedorModelForm(forms.ModelForm):
@@ -113,4 +86,27 @@ class AltaVendedorModelForm(forms.ModelForm):
             'financiamiento_ofrecido': forms.Select(attrs={'class': 'form-control form-control-sm'}),
             'licencia_vendedor': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Licencia de vendedor'}),
             'tipo_vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+        }
+        
+        
+class AltaCompradoModelForm(forms.ModelForm):
+     class Meta:
+        model = Comprador
+        #exclude = ['email']
+        
+        fields = '__all__'
+      
+        widgets = {
+            'nombre': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+            'apellido': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Apellido'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Email'}),
+            'dni': forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'DNI'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Teléfono'}),
+            'ubicacion': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Ubicación'}),
+            'tipo_comprador': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+            'preferencias_financiamiento': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+            'vehiculos_favoritos': forms.SelectMultiple(attrs={'class': 'form-control form-control-sm'}),
+
+            
+            
         }

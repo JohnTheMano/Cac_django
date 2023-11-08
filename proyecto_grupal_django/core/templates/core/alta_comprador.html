@@ -5,7 +5,7 @@
 <link rel="stylesheet" href=" {% static 'core/css/style.css' %}">
 {%endblock%}
 
-{% block title %}Alta de Vehiculo{% endblock %}
+{% block title %}Alta Comprador{% endblock %}
 {% block content %} 
 
 {% if messages %}
@@ -24,8 +24,8 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <div class="border p-4" > <!-- Agrega la clase "border" para el borde y "p-4" para el espaciado interno -->
-          <h2>REGISTRA TU AUTO</h2> <!-- Título "Registrar auto" -->
-          <form method="post" action="{% url 'alta_auto' %}" class="form">
+          <h2>REGISTRATE COMO COMPRADOR</h2> <!-- Título "Registrar auto" -->
+          <form method="post" action="{% url 'alta_comprador' %}" class="form">
             {% csrf_token %}
            
             {{ form.as_p }}
@@ -38,8 +38,6 @@
   </div>
   
   
-<<<<<<< HEAD
 {% endblock %}
-=======
-{% endblock %}
->>>>>>> Desarrollo
+
+
