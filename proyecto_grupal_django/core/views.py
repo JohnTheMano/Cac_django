@@ -200,6 +200,8 @@ class VehiculoUpdateView(UpdateView):
         "anio", 
         "tipo",
         "precio",
+        "descripcion",
+        "vendedor",
     ] 
     template_name = 'core/vehiculo_update.html' 
     success_url = reverse_lazy('vehiculos_listado')
