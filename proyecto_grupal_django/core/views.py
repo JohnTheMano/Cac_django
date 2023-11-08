@@ -4,9 +4,15 @@ from django.http import HttpResponse
 from django.urls import reverse
 from datetime import datetime
 from .forms import  NuevoAuto
+<<<<<<< HEAD
+from .models import Vendedor, Vehiculo
+from .forms import AltaVendedorModelForm,AltaVehiculoModelForm
+from django.views.generic import CreateView, ListView, DeleteView
+=======
 from .models import Vendedor, Vehiculo, Comprador, Transaccion
 from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoModelForm
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
+>>>>>>> Desarrollo
 #from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
@@ -250,7 +256,27 @@ if request.method == "POST":
     
     
 #listview Vehiculos
+
+class VehiculoCreateView(CreateView):
+    model = Vendedor
+    form_class = AltaVehiculoModelForm
+    template_name='core/alta_auto.html'
+    success_url='vehiculos'
+
+class VehiculosListView(ListView):
+    model = Vehiculo
+    context_object_name = 'listado_vehiculos'
+    template_name='core/vehiculos_listado.html'
+
+class VehiculoDeleteView(DeleteView):
+    model = Vehiculo
+    #el nombre de la plantilla es por defecto de django
+    template_name = 'core/vehiculo_confirm_delete.html' 
+    success_url = reverse_lazy('vehiculos_listado')
+
+
 """
+
 class VehiculosListView(ListView):
     
     vehiculos = [
