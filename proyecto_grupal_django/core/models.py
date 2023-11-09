@@ -106,8 +106,10 @@ class Vehiculo(models.Model):
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     descripcion = models.TextField()
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
+    
     def __str__(self):
-        return f" {self.marca} - {self.modelo} - {self.anio}"
+        return f" {self.marca}   {self.modelo}   {self.anio}"
+    
 
 class Comprador(Persona):
     
@@ -121,6 +123,7 @@ class Comprador(Persona):
     
     #----------------------relacion muchos a muchos-------------------------------------
     vehiculos_favoritos = models.ManyToManyField(Vehiculo, related_name='compradores_favoritos', blank=True)
+    interesados = models.ManyToManyField(Vehiculo, through="Transaccion")
     
     preferencias_financiamiento = models.CharField(
         max_length=30,
@@ -128,21 +131,31 @@ class Comprador(Persona):
         
     )
     def __str__(self):
-        return f" {self.nombre} - {self.apellido} - {self.tipo_comprador}"
+        return f" {self.nombre}   {self.apellido}   ({self.tipo_comprador})"
     
 
 class Transaccion(models.Model):
+    estado_negociacion = (
+        ('En Proceso', 'En Proceso'),
+        ('Completada', 'Completada'),
+    )
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
     comprador = models.ForeignKey(Comprador, on_delete=models.CASCADE)
     vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
     fecha_transaccion = models.DateTimeField(auto_now_add=True)
     precio_transaccion = models.DecimalField(max_digits=10, decimal_places=2)
-    metodo_pago = models.CharField(max_length=50)
-    estado_transaccion = models.CharField(max_length=20)  # Puede ser "En proceso", "Completada", etc.
+    metodo_pago = models.CharField(max_length=30,choices=Comprador.PREFERENCIAS_FINANCIAMIENTO_CHOICES)
+    estado_transaccion = models.CharField(max_length=30,choices=estado_negociacion)  # Puede ser "En proceso", "Completada", etc.
     observaciones = models.TextField( null=True)
+
+    def __str__(self):
+        return f" Vehículo:{self.vehiculo} --- Interesado:{self.comprador} --- Vendedor:{self.vendedor} ---- {self.estado_transaccion}"
 
 class Reporte(models.Model):
    
     contenido = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f" {self.vehiculo} ---- {self.fecha_creacion} ---- {self.contenido} ---- {self.contenido}"
