@@ -167,3 +167,19 @@ class AltaCompradoModelForm(forms.ModelForm):
             
             
         }
+        
+class AltatransaccionModelForm(forms.ModelForm):
+    class Meta:
+        model = Transaccion
+        fields = '__all__'
+
+    widgets = {
+        'vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+        'comprador': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+        'vehiculo': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+        'fecha_transaccion': forms.DateTimeInput(attrs={'class': 'form-control form-control-sm'}),
+        'precio_transaccion': forms.NumberInput(attrs={'class': 'form-control form-control-sm'}),
+        'metodo_pago': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
+        'estado_transaccion': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+        'observaciones': forms.Textarea(attrs={'class': 'form-control form-control-sm'}),
+    }

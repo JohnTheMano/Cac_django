@@ -5,7 +5,7 @@ from django.urls import reverse
 from datetime import datetime
 from .forms import  NuevoAuto
 from .models import Vendedor, Vehiculo, Comprador, Transaccion
-from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoModelForm
+from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoModelForm, AltatransaccionModelForm
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 #from django.views.generic.list import ListView
 from django.urls import reverse_lazy
@@ -204,8 +204,71 @@ class VehiculoUpdateView(UpdateView):
     template_name = 'core/vehiculo_update.html' 
     success_url = reverse_lazy('vehiculos_listado')
 #-------------------------------REGISTRAR LA TRANSACCION-------------------------
+
+class TransaccionCreateView(CreateView):
+    model = Transaccion
+    form_class = AltatransaccionModelForm
+    template_name='core/alta_transaccion.html'
+    success_url = reverse_lazy('vehiculos_listado')
+
+#------------otra opcion de regitrar transaccion-------------
+def comprar_vehiculo(request, vehiculo_id):
+    # Obtén el vehículo y el comprador que deseas precargar
+    vehiculo = Vehiculo.objects.get(pk=vehiculo_id)
+    comprador = Comprador.objects.get(pk=1)  # Reemplaza con el ID del comprador deseado
+    precio_vehiculo = vehiculo.precio
+    
+
+    if request.method == "POST":
+        form = AltatransaccionModelForm(request.POST)
+        if form.is_valid():
+            # Crea la instancia de la transacción y guarda los datos
+            transaccion = Transaccion(
+                vendedor=vehiculo.vendedor,
+                comprador=comprador,
+                vehiculo=vehiculo,
+                precio_transaccion=precio_vehiculo,
+                metodo_pago='efectivo',
+                estado_transaccion='Completada',
+                observaciones='nada'
+            )
+            transaccion.save()
+            return redirect('vehiculos_listado')  # Redirige a la lista de vehículos u otra página
+
+    else:
+        initial_data = {
+            'vendedor': vehiculo.vendedor,
+            'comprador': comprador,
+            'vehiculo': vehiculo,
+             'precio_transaccion':precio_vehiculo,
+             'metodo_pago':'efectivo',
+        }
+        form = AltatransaccionModelForm(initial=initial_data)
+
+    context = {
+        'form': form,
+        'vehiculo': vehiculo,
+        'comprador': comprador,
+    }
+
+    return render(request, 'core/alta_transaccion.html', context)
+"""
 def registrar_compra(request):
     pass
+    transaccion = Transaccion(
+    vendedor=vendedor,
+    comprador=comprador,
+    vehiculo=vehiculo,
+    fecha_transaccion=datetime.now(),
+    precio_transaccion=formulario.cleaned_data['precio'],
+    metodo_pago=formulario.cleaned_data['metodo_pago'],
+    estado_transaccion='Completada',
+    observaciones='observaciones',
+)
+    transaccion.save()
+    
+    """
+    
 """
 if request.method == "POST":
         formulario = NuevoAuto(request.POST)
@@ -247,29 +310,3 @@ if request.method == "POST":
     
     
     
-#listview Vehiculos
-"""
-class VehiculosListView(ListView):
-    
-    vehiculos = [
-        {'nombre': 'Renault Sandero Stepway', 'año': 2020},
-        {'nombre': 'Peugeot 208', 'año': 2021},
-        {'nombre': 'Volkswagen Tuareg', 'año': 2021},
-        {'nombre': 'Mitsubishi Colt', 'año': 2023},
-        {'nombre': 'Ford ka', 'año': 2023}]
-
- 
-    context = {
-            'listado_vehiculos': vehiculos
-            
-        }
-
-    
-
-    model= Vehiculo
-    template_name='core/vehiculos_listado.html'
-    context_object_name = 'listado_vehiculos'
-    success_url='vehiculos'
-       
-   
-"""
