@@ -25,7 +25,9 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'alta_auto' %}">Publicar Auto</a></li>
                   <li><a class="dropdown-item" href="{% url 'alta_vendedor'%}">Registrate como vendedor</a></li>
-                  <li><a class="dropdown-item" href="{% url 'vendedores_listado'%}">Listado de vendedores</a></li>
+                  {% if user.is_authenticated %}
+                     <li><a class="dropdown-item" href="{% url 'vendedores_listado'%}">Listado de vendedores</a></li>
+                  {% endif %}
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
@@ -38,7 +40,9 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'vehiculos_listado'%}">Lista de Vehiculos</a></li>
                   <li><a class="dropdown-item" href="{% url 'alta_comprador'%}">Registrate como comprador</a></li>
-                  <li><a class="dropdown-item" href="{% url 'compradores_listado'%}">Listado de compradores</a></li>
+                  {% if user.is_authenticated %}
+                      <li><a class="dropdown-item" href="{% url 'compradores_listado'%}">Listado de compradores</a></li>
+                  {% endif %}
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">0 KM</a></li>
                   <li><a class="dropdown-item" href="#">Usados</a></li>
@@ -51,10 +55,11 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'ficha_vehiculo' %}">Ofertas del Dia</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'ficha_vehiculo' %}">Reportes</a>
-              </li>
-
+              {% if user.is_authenticated %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
+                </li>
+              {% endif %}
             </ul>
             <form class="d-flex" role="search">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

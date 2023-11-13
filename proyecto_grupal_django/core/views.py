@@ -1,10 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse
 from datetime import datetime
 # from .forms import  NuevoAuto
-from .models import Vendedor, Vehiculo, Comprador, Transaccion
+from .models import Vendedor, Vehiculo, Comprador, Transaccion,Reporte
 from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoModelForm
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
 #from django.views.generic.list import ListView
@@ -19,6 +21,9 @@ def index(request):
 
 def nosotros(request):
     return render(request,'core/nosotros.html')
+
+def reportes(request):
+    return render(request,'core/reportes.html')
 
 
 def nombre_usuario(request,usuario):
@@ -110,6 +115,7 @@ def registrar_venta(request):
     return render( request ,'core/vende_tu_auto.html',context )
 
 #------Vendedor----------------------
+
 class VendedorCreateView(CreateView):
     model = Vendedor
     form_class = AltaVendedorModelForm
@@ -126,7 +132,7 @@ class VendedorUpdateView(UpdateView):
 
 
     
-class VendedorListView(ListView):
+class VendedorListView(LoginRequiredMixin,ListView):
     model = Vendedor
     context_object_name = 'listado_vendedor'
     template_name='core/vendedor_listado.html'
@@ -163,7 +169,7 @@ class CompradorUpdateView(UpdateView):
     success_url = reverse_lazy('compradores_listado')
 
 
-class CompradorListView(ListView):
+class CompradorListView(LoginRequiredMixin, ListView):
     model = Comprador
     context_object_name = 'listado_comprador'
     template_name='core/comprador_listado.html'
@@ -208,6 +214,10 @@ class VehiculoDeleteView(DeleteView):
     template_name = 'core/vehiculo_confirm_delete.html' 
     success_url = reverse_lazy('vehiculos_listado')
 
+class ReportesListView(ListView):
+    model = Reporte
+    context_object_name = 'reportes'
+    template_name = 'core/reportes.html'
 
 #-------------------------------REGISTRAR LA TRANSACCION-------------------------
 def registrar_compra(request):

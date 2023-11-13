@@ -168,4 +168,4 @@ class Reporte(models.Model):
     vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f" {self.vehiculo} ---- {self.fecha_creacion} ---- {self.contenido} ---- {self.contenido}"
+        return f" {self.vehiculo} ---- {self.fecha_creacion} ---- {self.contenido} "
