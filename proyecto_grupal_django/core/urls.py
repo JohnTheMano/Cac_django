@@ -21,9 +21,9 @@ urlpatterns = [
     path('vendedor/delete/<int:pk>', views.VendedorDeleteView.as_view(), name='vendedor_eliminar'),
     path('comprador/delete/<int:pk>', views.CompradorDeleteView.as_view(), name='comprador_eliminar'),
     path('vendedor/update/<int:pk>', views.VendedorUpdateView.as_view(), name='vendedor_actualizar'),
-    path('comprador/update/<int:pk>', views.CompradorUpdateView.as_view(), name='comprador_actualizar'),
+    path('comprador/update/<int:pk>', views.CompradorUpdateView.as_view(), name='comprador_update'),
     path('vehiculos/alta_auto/', views.VehiculoCreateView.as_view(), name="alta_auto"),
-    path('vehiculos/alta_auto/vehiculos', views.VehiculosListView.as_view(), name="vehiculos_listado"),
+    path('vehiculos/alta_auto/vehiculos_listado', views.VehiculosListView.as_view(), name="vehiculos_listado"),
     path('vehiculos/delete/<int:pk>', views.VehiculoDeleteView.as_view(), name='vehiculo_eliminar'),
     path('vehiculos/updatev/<int:pk>', views.VehiculoUpdateView.as_view(), name='vehiculo_update'),
     

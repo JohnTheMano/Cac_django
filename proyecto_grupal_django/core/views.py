@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.urls import reverse
 from datetime import datetime
-from .forms import  NuevoAuto
+# from .forms import  NuevoAuto
 from .models import Vendedor, Vehiculo, Comprador, Transaccion
 from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoModelForm
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView
@@ -158,9 +158,9 @@ class CompradorCreateView(CreateView):
 
 class CompradorUpdateView(UpdateView):
     model = Comprador
+    template_name='core/comprador_update.html'
     form_class = AltaCompradoModelForm
-    template_name='core/alta_Comprador.html'
-    success_url = reverse_lazy('comprador_actualizar')
+    success_url = reverse_lazy('compradores_listado')
 
 
 class CompradorListView(ListView):
@@ -181,7 +181,21 @@ class VehiculoCreateView(CreateView):
     model = Vehiculo
     form_class = AltaVehiculoModelForm
     template_name='core/alta_auto.html'
-    success_url='vehiculos'
+    success_url='vehiculos_listado'
+
+class VehiculoUpdateView(UpdateView):
+    model = Vehiculo
+    # fields = [ 
+    #     "anio", 
+    #     "tipo",
+    #     "precio",
+    #     "descripcion",
+    #     "vendedor",
+    # ] 
+    form_class = AltaVehiculoModelForm
+    template_name = 'core/vehiculo_update.html' 
+    success_url = reverse_lazy('vehiculos_listado')
+    
 
 class VehiculosListView(ListView):
     model = Vehiculo
@@ -194,17 +208,7 @@ class VehiculoDeleteView(DeleteView):
     template_name = 'core/vehiculo_confirm_delete.html' 
     success_url = reverse_lazy('vehiculos_listado')
 
-class VehiculoUpdateView(UpdateView):
-    model = Vehiculo
-    fields = [ 
-        "anio", 
-        "tipo",
-        "precio",
-        "descripcion",
-        "vendedor",
-    ] 
-    template_name = 'core/vehiculo_update.html' 
-    success_url = reverse_lazy('vehiculos_listado')
+
 #-------------------------------REGISTRAR LA TRANSACCION-------------------------
 def registrar_compra(request):
     pass

@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -107,9 +108,18 @@ class Vehiculo(models.Model):
     descripcion = models.TextField()
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
     
+    
     def __str__(self):
         return f" {self.marca}   {self.modelo}   {self.anio}"
     
+    def clean_precio(self):
+        if not (0 < self.cleaned_data['precio'] <= 999):
+            raise ValidationError("El precio debe ser un numero positivo de 8 digitos")
+        return self.cleaned_data['precio']
+    
+        # if año < 2006:
+        #     raise ValidationError("El año debe ser mayor o igual a 2006")
+        # return self.cleaned_data['anio']
 
 class Comprador(Persona):
     
@@ -123,7 +133,7 @@ class Comprador(Persona):
     
     #----------------------relacion muchos a muchos-------------------------------------
     vehiculos_favoritos = models.ManyToManyField(Vehiculo, related_name='compradores_favoritos', blank=True)
-    interesados = models.ManyToManyField(Vehiculo, through="Transaccion")
+    # interesados = models.ManyToManyField(Vehiculo, through="Transaccion")
     
     preferencias_financiamiento = models.CharField(
         max_length=30,
@@ -149,7 +159,7 @@ class Transaccion(models.Model):
     observaciones = models.TextField( null=True)
 
     def __str__(self):
-        return f" Vehículo:{self.vehiculo} --- Interesado:{self.comprador} --- Vendedor:{self.vendedor} ---- {self.estado_transaccion}"
+        return f" Vehículo:{self.vehiculo} --- Interesado:{self.comprador} --- Vendedor:{self.vendedor} ---- Estado: {self.estado_transaccion}"
 
 class Reporte(models.Model):
    

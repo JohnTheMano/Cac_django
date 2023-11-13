@@ -27,7 +27,7 @@
               <form method="post">
                 {% csrf_token %}
                 <a href="{% url 'comprador_eliminar' comprador.pk %}" class="btn btn-danger">Eliminar</a>
-                <a href="{% url 'comprador_actualizar' comprador.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'comprador_update' comprador.pk %}" class="btn btn-primary">Editar</a>
               </form>
             </div>
           </div>
