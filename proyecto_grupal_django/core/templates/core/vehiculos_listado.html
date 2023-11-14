@@ -15,10 +15,10 @@
           <p><strong>Vendedor:</strong> {{ vehiculo.vendedor }}</p>
           <form method="post">
             {% csrf_token %}
-            
-            <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
-            <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
-            
+            {% if user.is_authenticated %}
+              <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
+              <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
+            {% endif %}
           </form>
 
         </li>

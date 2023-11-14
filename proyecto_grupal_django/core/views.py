@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from datetime import datetime
 # from .forms import  NuevoAuto
@@ -131,18 +133,21 @@ class VendedorUpdateView(UpdateView):
     success_url = reverse_lazy('vendedores_listado')
 
 
-    
-class VendedorListView(LoginRequiredMixin,ListView):
+ 
+class VendedorListView(ListView):
     model = Vendedor
     context_object_name = 'listado_vendedor'
     template_name='core/vendedor_listado.html'
     #queryset= Vendedor.objects.filter(tipo_vendedor= "Persona")
     
-class VendedorDeleteView(DeleteView):
+class VendedorDeleteView(UserPassesTestMixin, DeleteView):
     model = Vendedor
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/vendedor_confirm_delete.html' 
     success_url = reverse_lazy('vendedores_listado')
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='administrativos').exists()
     
 
 """ 
@@ -162,11 +167,14 @@ class CompradorCreateView(CreateView):
     template_name='core/alta_Comprador.html'
     success_url='compradores_listado'
 
-class CompradorUpdateView(UpdateView):
+class CompradorUpdateView(UserPassesTestMixin, UpdateView):
     model = Comprador
     template_name='core/comprador_update.html'
     form_class = AltaCompradoModelForm
     success_url = reverse_lazy('compradores_listado')
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='administrativos').exists()
 
 
 class CompradorListView(LoginRequiredMixin, ListView):
@@ -176,11 +184,14 @@ class CompradorListView(LoginRequiredMixin, ListView):
     #queryset= Vendedor.objects.filter(tipo_vendedor= "Persona")
 
     
-class CompradorDeleteView(DeleteView):
+class CompradorDeleteView(UserPassesTestMixin, DeleteView):
     model = Comprador
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/comprador_confirm_delete.html' 
     success_url = reverse_lazy('compradores_listado')
+
+    def test_func(self):
+        return self.request.user.groups.filter(name='administrativos').exists()
 
 #-------------------------------VEHICULOS-------------------------
 class VehiculoCreateView(CreateView):
@@ -208,12 +219,18 @@ class VehiculosListView(ListView):
     context_object_name = 'listado_vehiculos'
     template_name='core/vehiculos_listado.html'
 
-class VehiculoDeleteView(DeleteView):
+class VehiculoDeleteView(UserPassesTestMixin, DeleteView):
     model = Vehiculo
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/vehiculo_confirm_delete.html' 
     success_url = reverse_lazy('vehiculos_listado')
 
+    def test_func(self):
+        return self.request.user.groups.filter(name='administrativos').exists()
+    
+    # def handle_no_permission(self):
+    #     return redirect('error')
+    
 class ReportesListView(ListView):
     model = Reporte
     context_object_name = 'reportes'
@@ -222,6 +239,11 @@ class ReportesListView(ListView):
 #-------------------------------REGISTRAR LA TRANSACCION-------------------------
 def registrar_compra(request):
     pass
+
+
+class ErrorView(DeleteView):
+    template_name = 'error.html'
+
 """
 if request.method == "POST":
         formulario = NuevoAuto(request.POST)

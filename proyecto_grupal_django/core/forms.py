@@ -76,30 +76,21 @@ class AltaVehiculoModelForm(forms.ModelForm):
         
         fields = '__all__'
       
-        # widgets = {
-        #     'marca' : forms.Select(attrs={'class': 'form-control form-control-sm', 'placeholder': 'marca'}),
-        #     'modelo' : forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'modelo'}),
-        #     'anio' : forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'año'}),
-        #     'tipo' : forms.Select(attrs={'class': 'form-control form-control-sm'}),
-        #     'precio' : forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'precio'}),
-        #     'descripcion' : forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'descripcion'}),
-        #     'vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-            
-        #     # 'Precio' : forms.IntegerField(label="Precio",required=True,widget=forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Precio'})),
-        #     # 'apellido': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Apellido'}),
-        #     # 'email': forms.EmailInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Email'}),
-        #     # 'dni': forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'DNI'}),
-        #     # 'telefono': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Teléfono'}),
-        #     # 'ubicacion': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Ubicación'}),
-        #     # 'financiamiento_ofrecido': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-        #     # 'licencia_vendedor': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Licencia de vendedor'}),
-        #     # 'tipo_vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-        # }
+        widgets = {
+            'marca' : forms.Select(attrs={'class': 'form-control form-control-sm', 'placeholder': 'marca'}),
+            'modelo' : forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'modelo'}),
+            'anio' : forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'año'}),
+            'tipo' : forms.Select(attrs={'class': 'form-control form-control-sm'}),
+            'precio' : forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'precio'}),
+            'descripcion' : forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'descripcion'}),
+            'vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
+        }
         
     def clean_anio(self):
         if not (1899 < self.cleaned_data['anio'] <=2024):
             raise ValidationError("El Año debe ser estar entre el 1900 y el 2024")
         return self.cleaned_data['anio']
+    
     
 
     

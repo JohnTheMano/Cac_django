@@ -7,6 +7,8 @@
 {% block title %}Login{% endblock %}
 {% block section_title %}Login{% endblock %}
 {% block content %}
+
+<h1>Acceso</h1>
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         <table>

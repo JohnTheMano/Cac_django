@@ -112,10 +112,10 @@ class Vehiculo(models.Model):
     def __str__(self):
         return f" {self.marca}   {self.modelo}   {self.anio}"
     
-    def clean_precio(self):
-        if not (0 < self.cleaned_data['precio'] <= 999):
-            raise ValidationError("El precio debe ser un numero positivo de 8 digitos")
-        return self.cleaned_data['precio']
+    # def clean_precio(self):
+    #     if not (0 < self.cleaned_data['precio'] <= 999):
+    #         raise ValidationError("El precio debe ser un numero positivo de 8 digitos")
+    #     return self.cleaned_data['precio']
     
         # if año < 2006:
         #     raise ValidationError("El año debe ser mayor o igual a 2006")
