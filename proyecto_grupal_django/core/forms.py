@@ -173,13 +173,13 @@ class AltatransaccionModelForm(forms.ModelForm):
         model = Transaccion
         fields = '__all__'
 
-    widgets = {
-        'vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-        'comprador': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-        'vehiculo': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-        'fecha_transaccion': forms.DateTimeInput(attrs={'class': 'form-control form-control-sm'}),
-        'precio_transaccion': forms.NumberInput(attrs={'class': 'form-control form-control-sm'}),
-        'metodo_pago': forms.TextInput(attrs={'class': 'form-control form-control-sm'}),
-        'estado_transaccion': forms.Select(attrs={'class': 'form-control form-control-sm'}),
-        'observaciones': forms.Textarea(attrs={'class': 'form-control form-control-sm'}),
-    }
+    """widgets = {
+        'vendedor': forms.Select(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+        'comprador': forms.Select(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+        'vehiculo': forms.Select(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+        'fecha_transaccion': forms.DateTimeInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+        'precio_transaccion': forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+        'metodo_pago': forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+        'estado_transaccion': forms.Select(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+        'observaciones': forms.Textarea(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
+    }"""

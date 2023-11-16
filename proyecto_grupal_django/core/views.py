@@ -20,7 +20,7 @@ def index(request):
 def nosotros(request):
     return render(request,'core/nosotros.html')
 
-
+                
 def nombre_usuario(request,usuario):
     return HttpResponse(
        f"""<h1>Bienvenido: {usuario}!</h1>"""
@@ -211,7 +211,7 @@ class TransaccionCreateView(CreateView):
     model = Transaccion
     form_class = AltatransaccionModelForm
     template_name='core/alta_transaccion.html'
-    success_url = reverse_lazy('vehiculos_listado')
+    success_url = reverse_lazy('ventas_listado')
 
 #------------otra opcion de regitrar transaccion-------------
 def comprar_vehiculo(request, vehiculo_id):
@@ -219,6 +219,8 @@ def comprar_vehiculo(request, vehiculo_id):
     vehiculo = Vehiculo.objects.get(pk=vehiculo_id)
     comprador = Comprador.objects.get(pk=1)  # Reemplaza con el ID del comprador deseado
     precio_vehiculo = vehiculo.precio
+    metodo_pago='efectivo'
+    estado_transaccion='Completada'
     
 
     if request.method == "POST":
@@ -230,12 +232,12 @@ def comprar_vehiculo(request, vehiculo_id):
                 comprador=comprador,
                 vehiculo=vehiculo,
                 precio_transaccion=precio_vehiculo,
-                metodo_pago='efectivo',
-                estado_transaccion='Completada',
-                observaciones='nada'
+                metodo_pago=metodo_pago,
+                estado_transaccion=estado_transaccion,
+                observaciones='123op'
             )
             transaccion.save()
-            return redirect('vehiculos_listado')  # Redirige a la lista de vehículos u otra página
+            return redirect('ventas_listado')  # Redirige a la lista de vehículos u otra página
 
     else:
         initial_data = {
@@ -243,7 +245,9 @@ def comprar_vehiculo(request, vehiculo_id):
             'comprador': comprador,
             'vehiculo': vehiculo,
              'precio_transaccion':precio_vehiculo,
-             'metodo_pago':'efectivo',
+             'metodo_pago':metodo_pago,
+             'estado_transaccion':estado_transaccion
+             
         }
         form = AltatransaccionModelForm(initial=initial_data)
 
@@ -254,57 +258,11 @@ def comprar_vehiculo(request, vehiculo_id):
     }
 
     return render(request, 'core/alta_transaccion.html', context)
-"""
-def registrar_compra(request):
-    pass
-    transaccion = Transaccion(
-    vendedor=vendedor,
-    comprador=comprador,
-    vehiculo=vehiculo,
-    fecha_transaccion=datetime.now(),
-    precio_transaccion=formulario.cleaned_data['precio'],
-    metodo_pago=formulario.cleaned_data['metodo_pago'],
-    estado_transaccion='Completada',
-    observaciones='observaciones',
-)
-    transaccion.save()
-    
-    """
-    
-"""
-if request.method == "POST":
-        formulario = NuevoAuto(request.POST)
-        if formulario.is_valid():
-            # Obtén o crea el vendedor, comprador y vehículo según sea necesario
-            vendedor, _ = Vendedor.objects.get_or_create(nombre=formulario.cleaned_data['nombre_vendedor'], apellido=formulario.cleaned_data['apellido_vendedor'], dni=formulario.cleaned_data['dni_vendedor'])
-            comprador, _ = Comprador.objects.get_or_create(nombre=formulario.cleaned_data['nombre_comprador'], apellido=formulario.cleaned_data['apellido_comprador'], dni=formulario.cleaned_data['dni_comprador'])
-            vehiculo, _ = Vehiculo.objects.get_or_create(marca=formulario.cleaned_data['marca'], modelo=formulario.cleaned_data['modelo'], placa=formulario.cleaned_data['placa'])
-            
-            # Crea una nueva transacción de compra
-            transaccion = Transaccion.objects.create(
-                vendedor=vendedor,
-                comprador=comprador,
-                vehiculo=vehiculo,
-                fecha_transaccion=datetime.now(),
-                precio_transaccion=formulario.cleaned_data['precio'],  # Ajusta el campo del formulario correspondiente
-                metodo_pago=formulario.cleaned_data['metodo_pago'],  # Ajusta el campo del formulario correspondiente
-                estado_transaccion='Completada',  # Puedes ajustar el estado según sea necesario
-                observaciones=formulario.cleaned_data['observaciones'],  # Ajusta el campo del formulario correspondiente
-            )
-            return redirect(reverse("registrar_auto"))
-    else:
-        formulario = NuevoAuto()
 
-    context = {
-        'venta_form': formulario
-    }
-
-    return render(request, 'core/vende_tu_auto.html', context)
-"""
-    
-    
-    
-    
+class VentasListView(ListView):
+    model = Transaccion
+    context_object_name = 'listado_ventas'
+    template_name='core/ventas_listado.html'
     
     
     

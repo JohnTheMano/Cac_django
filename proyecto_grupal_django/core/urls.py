@@ -28,5 +28,6 @@ urlpatterns = [
     path('vehiculos/updatev/<int:pk>', views.VehiculoUpdateView.as_view(), name='vehiculo_update'),
     path('vehiculos/alta_transaccion', views.TransaccionCreateView.as_view(), name="alta_transaccion"),
     path('vehiculos/comprar_vehiculo/<int:vehiculo_id>/', views.comprar_vehiculo, name='comprar_vehiculo'),
+    path('vehiculos/ventas_listado', views.VentasListView.as_view(), name="ventas_listado"),
     
     ]

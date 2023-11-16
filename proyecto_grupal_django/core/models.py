@@ -16,7 +16,7 @@ class Persona(models.Model):
         abstract= True
 
     def nombre_completo(self):
-        return f"{self.nombre}{self.apellido}"
+        return f"{self.nombre} {self.apellido}"
     def __str__(self):
         return self.nombre_completo()
     
@@ -128,7 +128,7 @@ class Comprador(Persona):
         
     )
     def __str__(self):
-        return f" {self.nombre} - {self.apellido} - {self.tipo_comprador}"
+        return f" {self.nombre} {self.apellido} "
     
 
 class Transaccion(models.Model):

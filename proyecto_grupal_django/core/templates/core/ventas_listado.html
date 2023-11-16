@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %}Listado Transacciones / Ventas{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">Listado Transacciones / Ventas</h1>
+    <ul class="list-group">
+      {% for venta in listado_ventas %}
+        <li class="list-group-item">
+          <h4>{{ venta.vehiculo }} {{ venta.metodo_pago }}</h4>
+          <p><strong>Vendedor:</strong> {{ venta.vendedor }}</p>
+          <p><strong>Comprador:</strong> {{ venta.comprador }}</p>
+          <p><strong>Precio: </strong> {{ venta.vehiculo.precio }}</p>
+          <p><strong>fecha:</strong> {{venta.fecha_transaccion }}</p>
+          
+          <p><strong>Estado: </strong> {{venta.estado_transaccion }}</p>
+          <form method="post">
+            {% csrf_token %}
+            
+            
+          </form>
+         
+        </li>
+      {% empty %}
+        <li class="list-group-item">No hay ventas realizadas.</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
