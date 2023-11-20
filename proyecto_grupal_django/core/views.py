@@ -6,7 +6,7 @@ from datetime import datetime
 from .forms import  NuevoAuto
 from .models import Vendedor, Vehiculo, Comprador, Transaccion
 from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoModelForm, AltatransaccionModelForm
-from django.views.generic import CreateView, ListView, DeleteView, UpdateView
+from django.views.generic import CreateView, ListView, DeleteView, UpdateView, View
 #from django.views.generic.list import ListView
 from django.urls import reverse_lazy
 
@@ -187,6 +187,8 @@ class VehiculosListView(ListView):
     model = Vehiculo
     context_object_name = 'listado_vehiculos'
     template_name='core/vehiculos_listado.html'
+   
+    
 
 class VehiculoDeleteView(DeleteView):
     model = Vehiculo
@@ -264,9 +266,27 @@ class VentasListView(ListView):
     context_object_name = 'listado_ventas'
     template_name='core/ventas_listado.html'
     
-    
-    
-    
-    
+#------------------------Reportes----------------------------------------
+class ReportesView(View):
+    template_name = 'core/reportes.html'
+
+    def get(self, request, *args, **kwargs):
+        # Lógica para obtener los datos necesarios para los gráficos
+        cantidad_vehiculos_0KM = Vehiculo.objects.filter(tipo='0KM').count()
+        cantidad_vehiculos_usado = Vehiculo.objects.filter(tipo='Usado').count()
+        #cantidad_vehiculos_por_tipo = Vehiculo.objects.values('tipo')
+        #cantidad_vendedores = Vendedor.objects.count()
+        #cantidad_compradores = Comprador.objects.count()
+
+        # Pasar los datos al contexto
+        context = {
+            'cantidad_vehiculos_0KM': cantidad_vehiculos_0KM ,
+            'cantidad_vehiculos_usado': cantidad_vehiculos_usado,
+            #'cantidad_vendedores': cantidad_vendedores,
+            #'cantidad_compradores': cantidad_compradores,
+            # Puedes agregar más datos según sea necesario
+        }
+
+        return render(request, self.template_name, context)
     
     
