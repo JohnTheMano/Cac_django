@@ -1,31 +1,34 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
-
 {% block extra_css %} 
 <link rel="stylesheet" href="{% static 'core/css/ficha_vehiculo.css' %}">
 {% endblock %}
 
 {% block title %}Ficha del vehículo{% endblock %}
+
 {% block content %} 
-<h1>
-    Oferta del día
-</h1>
-<ul>
-    <li>Modelo: {{nombre_vehículo}}</li>
-    <li>Marca: {{marca}}</li>
-    <li>Año: {{anio}}</li>
-</ul>
-<p>"Acá iría la Descripción del vehículo"</p>
 
-{% if entrega_inmediata %}
-    <p>
-        <h3>Entrega inmediata!</h3>
-    </p>
-{% else%} 
-    <p>
-        <h3>Entrega a los 30 días</h3>
-    </p>
-{% endif %}
+<div class="container">
+    {% if vehiculo_oferta %}
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="my-4">Oferta del día</h2>
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text"><strong>Marca:</strong> {{ vehiculo_oferta.marca }}</p>
+                        <p class="card-text"><strong>Modelo:</strong> {{ vehiculo_oferta.modelo }}</p>
+                        <p class="card-text"><strong>Año:</strong> {{ vehiculo_oferta.anio }}</p>
+                        <p class="card-text"><strong>Tipo:</strong> {{ vehiculo_oferta.tipo }}</p>
+                        <p class="card-text"><strong>Precio:</strong> ${{ vehiculo_oferta.precio }}</p>
+                        <p class="card-text"><strong>Descripción:</strong> {{ vehiculo_oferta.descripcion }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p class="mt-4">No hay vehículos disponibles en este momento.</p>
+    {% endif %}
+</div>
+
 {% endblock %}
-

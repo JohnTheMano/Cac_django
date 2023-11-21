@@ -323,3 +323,15 @@ class ReportesView(View):
         return render(request, self.template_name, context)
     
     
+def oferta_dia(request):
+   
+    
+
+    # Recupera el vehículo de la base de datos
+    vehiculo_oferta = Vehiculo.objects.all().order_by('precio').first()
+   
+    context = {
+        'vehiculo_oferta': vehiculo_oferta,
+    }
+    print(context)
+    return render(request, 'core/oferta_del_dia.html', context)

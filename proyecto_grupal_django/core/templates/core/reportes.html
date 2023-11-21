@@ -8,32 +8,59 @@
 {% block title %}Graficos{% endblock %}
 
 {% block content %} 
-<h1>Mis Gráficos</h1>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Mis Gráficos</h1>
 
-<div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Cantidad de Vehículos por Tipo</h5>
+            <!-- Gráfico de Barras -->
+            <canvas id="graficoBarras" height="200"></canvas>
+          </div>
+        </div>
+      </div>
 
-    <div style="flex: 1; width: 45%; margin: 10px;">
-        <!-- Gráfico de Barras -->
-        <canvas id="graficoBarras" height="200"></canvas>
-
-        <!-- Gráfico de Línea -->
-        <canvas id="graficoLinea" height="200"></canvas>
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Ventas Mensuales 2023</h5>
+            <!-- Gráfico de Línea -->
+            <canvas id="graficoLinea" height="200"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div style="flex: 1; width: 45%; margin: 10px;">
-        <!-- Gráfico Radar -->
-        <canvas id="graficoPolar" height="200"></canvas>
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Tipos de Financiamientos Ofrecidos</h5>
+            <!-- Gráfico Radar -->
+            <canvas id="graficoPolar" height="200"></canvas>
+          </div>
+        </div>
+      </div>
 
-        <!-- Gráfico de Donut -->
-        <canvas id="graficoDonut" height="200"></canvas>
+      <div class="col-md-6 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Vendedores con más ventas</h5>
+            <!-- Gráfico de Donut -->
+            <canvas id="graficoDonut" height="200"></canvas>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div style="flex: 1; width: 45%; margin: 10px;">
-        <!-- Gráfico Polar -->
-        <canvas id="graficoPolar" height="200"></canvas>
-    </div>
+  <p class="text-center mt-5">Cantidad de vehículos por tipo: {{ cantidad_vehiculos_por_tipo }}</p>
+  <p class="text-center">Leasing: {{ financiamientos_leasing }}</p>
+  <p class="text-center">Financiamiento a plazos: {{ financiamientos_plazos }}</p>
+  <p class="text-center">Contado: {{ financiamientos_contado }}</p>
 
-</div>
 
 <p>cantidad_vehiculos_por_tipo{{cantidad_vehiculos_por_tipo}}</p>
 <p>leasing {{ financiamientos_leasing }}</p>
@@ -84,6 +111,7 @@
             {% endfor %}
         ],
         datasets: [{
+            
             data: [
                 {% for vendedor in vendedores_mas_transacciones %}
                     {{ vendedor.num_transacciones }},
