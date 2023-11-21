@@ -1,5 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth import authenticate, login,logout
+from django.conf import settings
+from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required,permission_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse
 from datetime import datetime
@@ -9,15 +14,34 @@ from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoMod
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView, View
 #from django.views.generic.list import ListView
 from django.urls import reverse_lazy
-from datetime import datetime
-from django.db.models import Count
 
 
 
 # Create your views here.
+def mi_Vista(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username = username, password = password)
+    if user is not None:
+        login(request,user)
+        #redireccionar pagina éxito
+    else:
+        return {f'Login Inváildo'}
+        pass
+
+# def logout_view(request):
+#     logout(request)
+#     #redireccionar a pagina éxito
+
 def index(request):
     #if request.method == "GET":
         return render(request, "core/index.html")
+
+
+# @permission_required('cac.puede_ver_lista',login_url='./core/login.html')
+
+
+
 
 def nosotros(request):
     return render(request,'core/nosotros.html')
@@ -28,6 +52,8 @@ def nombre_usuario(request,usuario):
        f"""<h1>Bienvenido: {usuario}!</h1>"""
     )
 
+def registro_exitoso(request):
+    return render(request, 'core/registro_exitoso.html')
 
 def vehiculos_todos(request):
      
@@ -116,7 +142,7 @@ class VendedorCreateView(CreateView):
     model = Vendedor
     form_class = AltaVendedorModelForm
     template_name='core/alta_vendedor.html'
-    success_url='vendedores_listado'
+    success_url='registro_exitoso'
     
     #fields = '__all__'
 
@@ -156,7 +182,7 @@ class CompradorCreateView(CreateView):
     model = Comprador
     form_class = AltaCompradoModelForm
     template_name='core/alta_Comprador.html'
-    success_url='compradores_listado'
+    success_url='registro_exitoso'
 
 class CompradorUpdateView(UpdateView):
     model = Comprador
@@ -168,6 +194,7 @@ class CompradorUpdateView(UpdateView):
 class CompradorListView(ListView):
     model = Comprador
     context_object_name = 'listado_comprador'
+    permission_required = 'cac.puede_ver_lista'
     template_name='core/comprador_listado.html'
     #queryset= Vendedor.objects.filter(tipo_vendedor= "Persona")
 
@@ -179,7 +206,7 @@ class CompradorDeleteView(DeleteView):
     success_url = reverse_lazy('compradores_listado')
 
 #-------------------------------VEHICULOS-------------------------
-class VehiculoCreateView(CreateView):
+class VehiculoCreateView(LoginRequiredMixin,CreateView):
     model = Vehiculo
     form_class = AltaVehiculoModelForm
     template_name='core/alta_auto.html'
@@ -192,13 +219,13 @@ class VehiculosListView(ListView):
    
     
 
-class VehiculoDeleteView(DeleteView):
+class VehiculoDeleteView(LoginRequiredMixin,DeleteView):
     model = Vehiculo
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/vehiculo_confirm_delete.html' 
     success_url = reverse_lazy('vehiculos_listado')
 
-class VehiculoUpdateView(UpdateView):
+class VehiculoUpdateView(LoginRequiredMixin,UpdateView):
     model = Vehiculo
     fields = [ 
         "anio", 
@@ -218,6 +245,8 @@ class TransaccionCreateView(CreateView):
     success_url = reverse_lazy('ventas_listado')
 
 #------------otra opcion de regitrar transaccion-------------
+
+
 def comprar_vehiculo(request, vehiculo_id):
     # Obtén el vehículo y el comprador que deseas precargar
     vehiculo = Vehiculo.objects.get(pk=vehiculo_id)

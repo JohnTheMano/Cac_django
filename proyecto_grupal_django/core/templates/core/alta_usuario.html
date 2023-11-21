@@ -1,0 +1,16 @@
+{% extends "core/base.html" %}
+{% load static %}
+{% block extra_css%}
+    <link rel="stylesheet" href="{% static 'core/css/alta_usuario.css' %}">
+{%endblock%}
+
+{% block title %}Alta de usuario{% endblock %}
+{% block section_title %}Alta de usuario{% endblock %}
+{% block content %}
+    <h3>Datos del Registro</h3>
+    <form method="post" action="{% url 'alta_usuario' %}">
+        {% csrf_token %}
+        {{ alta_usuario_form.as_p }}
+        <input type="submit">
+    </form>
+{% endblock %}

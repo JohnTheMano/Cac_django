@@ -153,3 +153,4 @@ class Reporte(models.Model):
     contenido = models.TextField()
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
+
