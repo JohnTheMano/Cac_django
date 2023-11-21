@@ -16,16 +16,19 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
-              </li>
-              
+              </li>              
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Vendé tu auto
                 </a>
                 <ul class="dropdown-menu">
+                  {% if user.is_authenticated %} 
                   <li><a class="dropdown-item" href="{% url 'alta_auto' %}">Publicar Auto</a></li>
+                  {% endif %}
                   <li><a class="dropdown-item" href="{% url 'alta_vendedor'%}">Registrate como vendedor</a></li>
-                  <li><a class="dropdown-item" href="{% url 'vendedores_listado'%}">Listado de vendedores</a></li>
+                  {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'vendedores_listado'%}">Listado de vendedores</a></li>
+                  {% endif %}
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
@@ -38,7 +41,9 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'vehiculos_listado'%}">Lista de Vehiculos</a></li>
                   <li><a class="dropdown-item" href="{% url 'alta_comprador'%}">Registrate como comprador</a></li>
-                  <li><a class="dropdown-item" href="{% url 'compradores_listado'%}">Listado de compradores</a></li>
+                  {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'compradores_listado'%}">Listado de compradores</a></li>
+                  {% endif %}
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">0 KM</a></li>
                   <li><a class="dropdown-item" href="#">Usados</a></li>
@@ -52,9 +57,21 @@
                 <a class="nav-link" href="{% url 'ficha_vehiculo' %}">Ofertas del Dia</a>
               </li>
               <li class="nav-item">
+                {% if user.is_authenticated %}
                 <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url 'ventas_listado' %}">Listado transacciones</a>
+                <li>
+                {% endif %}
+                  <div class="actions">
+                    {% if not user.is_authenticated %}
+                        <a href="{% url 'login' %}">Login</a>
+                    {% else %}
+                        <p>Bienvenid@ <b>{{user.username}}</b></p>
+                        <a class="logout" href="{% url 'logout' %}">Logout</a>
+                    {% endif %}
+                </div>
+                </li>
               
             
             </ul>

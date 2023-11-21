@@ -1,13 +1,20 @@
 from django.urls import path, re_path
 from . import views
+from django.contrib.auth import views as auth_views
 from .views import ReportesView
 
 
 urlpatterns = [
     path('', views.index, name='index'),
+    
     path('nosotros/', views.nosotros , name='nosotros'),
     path('usuarios/<str:usuario>', views.nombre_usuario, name='nombre_usuario'),
     path('vehiculos/', views.vehiculos_todos, name='vehiculos_todos'),
+
+    path('vehiculos/registro_exitoso/', views.registro_exitoso, name='registro_exitoso'),
+
+    path('accounts/login/', auth_views.LoginView.as_view(template_name='core/login.html'),name='login'),
+    path('accounts/logout/', auth_views.LogoutView.as_view(), name='logout'),
     
     re_path('vehiculos/anio/(?P<anio>[0-9]{4})/$', views.vehiculos_anio, name='vehiculos_anio'),
     path('vehiculos/disponibles', views.vehiculos_estado, {'estado': 'disponible'}, name="vehiculos_disponible"),
