@@ -216,7 +216,7 @@ class VehiculoCreateView(CreateView):
 
 class VehiculosListView(ListView):
     model = Vehiculo
-    context_object_name = 'listado_vehiculos'
+    context_object_name = 'vehiculos_listado'
     template_name='core/vehiculos_listado.html'
    
     
