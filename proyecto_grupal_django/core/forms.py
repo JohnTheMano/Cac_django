@@ -183,3 +183,4 @@ class AltatransaccionModelForm(forms.ModelForm):
         'estado_transaccion': forms.Select(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
         'observaciones': forms.Textarea(attrs={'class': 'form-control form-control-sm', 'placeholder': 'Nombre'}),
     }"""
+    

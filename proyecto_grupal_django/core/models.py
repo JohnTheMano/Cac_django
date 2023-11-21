@@ -125,20 +125,26 @@ class Comprador(Persona):
     
     preferencias_financiamiento = models.CharField(
         max_length=30,
-        choices=PREFERENCIAS_FINANCIAMIENTO_CHOICES,
-        
-    )
+        choices=PREFERENCIAS_FINANCIAMIENTO_CHOICES,    )
     def __str__(self):
         return f" {self.nombre} {self.apellido} "
     
 
 class Transaccion(models.Model):
+    
+    Metodo_pago = (
+        ('Financiamiento a Plazos', 'Financiamiento a Plazos'),
+        ('Leasing', 'Leasing'),
+        ('Pago al Contado', 'Pago al Contado'),
+        ('Financiacion Bancaria', 'Financiacion Bancaria' ),
+        
+    )
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
     comprador = models.ForeignKey(Comprador, on_delete=models.CASCADE)
     vehiculo = models.ForeignKey(Vehiculo, on_delete=models.CASCADE)
     fecha_transaccion = models.DateTimeField(auto_now_add=True)
     precio_transaccion = models.DecimalField(max_digits=10, decimal_places=2)
-    metodo_pago = models.CharField(max_length=50)
+    metodo_pago = models.CharField(max_length=30,choices = Metodo_pago)
     estado_transaccion = models.CharField(max_length=20)  # Puede ser "En proceso", "Completada", etc.
     observaciones = models.TextField( null=True)
 
