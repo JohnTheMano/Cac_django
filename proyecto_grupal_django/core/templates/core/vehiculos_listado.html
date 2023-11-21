@@ -20,9 +20,11 @@
               <p class="card-text"><strong>Vendedor:</strong> {{ vehiculo.vendedor }}</p>
               <form method="post">
                 {% csrf_token %}
-                <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
-                <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
-                <a href="{% url 'comprar_vehiculo' vehiculo.pk %}" class="btn btn-primary">Comprar</a>
+                {% if user.is_authenticated %} 
+                  <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
+                  <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
+                  <a href="{% url 'comprar_vehiculo' vehiculo.pk %}" class="btn btn-primary">Comprar</a>
+                {% endif %}
               </form>
             </div>
           </div>
