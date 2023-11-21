@@ -345,7 +345,7 @@ def auto_Okm(request):
     return render(request, 'core/0km.html', context)
 
 def usados(request):
-    vehiculos_usados= Vehiculo.objects.filter(tipo='0KM')
+    vehiculos_usados= Vehiculo.objects.filter(tipo='Usado')
     context = {
         'vehiculos_usados': vehiculos_usados,
     }
