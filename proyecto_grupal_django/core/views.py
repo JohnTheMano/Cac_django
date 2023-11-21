@@ -188,9 +188,9 @@ class CompradorCreateView(CreateView):
 
 class CompradorUpdateView(UpdateView):
     model = Comprador
+    template_name='core/comprador_update.html'
     form_class = AltaCompradoModelForm
-    template_name='core/alta_Comprador.html'
-    success_url = reverse_lazy('comprador_actualizar')
+    success_url = reverse_lazy('compradores_listado')
 
 
 class CompradorListView(ListView):
