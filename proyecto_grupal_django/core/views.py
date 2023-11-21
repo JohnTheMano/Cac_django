@@ -9,6 +9,8 @@ from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoMod
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView, View
 #from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+from datetime import datetime
+from django.db.models import Count
 
 
 
@@ -274,6 +276,29 @@ class ReportesView(View):
         # Lógica para obtener los datos necesarios para los gráficos
         cantidad_vehiculos_0KM = Vehiculo.objects.filter(tipo='0KM').count()
         cantidad_vehiculos_usado = Vehiculo.objects.filter(tipo='Usado').count()
+        transacciones_septiembre = Transaccion.objects.filter(
+            fecha_transaccion__month=9,
+            fecha_transaccion__year=datetime.now().year
+        ).count()
+        transacciones_octubre = Transaccion.objects.filter(
+            fecha_transaccion__month=10,
+            fecha_transaccion__year=datetime.now().year
+        ).count()
+        transacciones_noviembre = Transaccion.objects.filter(
+            fecha_transaccion__month=11,
+            fecha_transaccion__year=datetime.now().year
+        ).count()
+        transacciones_diciembre = Transaccion.objects.filter(
+            fecha_transaccion__month=12,
+            fecha_transaccion__year=datetime.now().year
+        ).count()
+        financiamientos_plazos = Vendedor.objects.filter(financiamiento_ofrecido='Financiamiento a Plazos').count()
+        financiamientos_leasing = Vendedor.objects.filter(financiamiento_ofrecido='Leasing').count()
+        financiamientos_contado = Vendedor.objects.filter(financiamiento_ofrecido='Pago al Contado').count()
+        
+        vendedores_mas_transacciones = Vendedor.objects.annotate(num_transacciones=Count('transaccion')).order_by('-num_transacciones')[:3]
+
+        
         #cantidad_vehiculos_por_tipo = Vehiculo.objects.values('tipo')
         #cantidad_vendedores = Vendedor.objects.count()
         #cantidad_compradores = Comprador.objects.count()
@@ -282,6 +307,14 @@ class ReportesView(View):
         context = {
             'cantidad_vehiculos_0KM': cantidad_vehiculos_0KM ,
             'cantidad_vehiculos_usado': cantidad_vehiculos_usado,
+            'transacciones_septiembre': transacciones_septiembre,
+            'transacciones_octubre': transacciones_octubre,
+            'transacciones_noviembre': transacciones_noviembre,
+            'transacciones_diciembre': transacciones_diciembre,
+            'financiamientos_plazos': financiamientos_plazos,
+            'financiamientos_leasing': financiamientos_leasing,
+            'financiamientos_contado': financiamientos_contado,
+            'vendedores_mas_transacciones': vendedores_mas_transacciones,
             #'cantidad_vendedores': cantidad_vendedores,
             #'cantidad_compradores': cantidad_compradores,
             # Puedes agregar más datos según sea necesario

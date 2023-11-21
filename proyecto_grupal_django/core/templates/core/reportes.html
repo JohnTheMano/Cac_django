@@ -22,7 +22,7 @@
 
     <div style="flex: 1; width: 45%; margin: 10px;">
         <!-- Gráfico Radar -->
-        <canvas id="graficoRadar" height="200"></canvas>
+        <canvas id="graficoPolar" height="200"></canvas>
 
         <!-- Gráfico de Donut -->
         <canvas id="graficoDonut" height="200"></canvas>
@@ -36,7 +36,9 @@
 </div>
 
 <p>cantidad_vehiculos_por_tipo{{cantidad_vehiculos_por_tipo}}</p>
-
+<p>leasing {{ financiamientos_leasing }}</p>
+<p>financiamiento_plazos {{ financiamientos_plazos }}</p>
+<p>contado {{ financiamientos_contado }}</p>
 <script>
 
   // Datos de ejemplo para los gráficos
@@ -45,7 +47,7 @@
   var datosBarras = {
       labels: ['0km','Usados'],
       datasets: [{
-          label: 'Cantidad de Vehículos',
+          label: 'Cantidad de Vehículos por Tipo',
           data: [parseInt("{{ cantidad_vehiculos_0KM }}"), parseInt("{{ cantidad_vehiculos_usado }}")],
           backgroundColor: 'rgba(75, 192, 192, 0.2)',
           borderColor: 'rgba(75, 192, 192, 1)',
@@ -54,10 +56,10 @@
   };
 
     var datosLinea = {
-        labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'],
+        labels: ['Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
         datasets: [{
-            label: 'Ventas Mensuales',
-            data: [12, 19, 3, 5, 2],
+            label: 'Ventas Mensuales 2023',
+            data: [parseInt("{{ transacciones_septiembre }}"), parseInt("{{ transacciones_octubre }}"),parseInt("{{ transacciones_noviembre }}"), parseInt("{{ transacciones_diciembre }}")],
             borderColor: 'rgba(255, 99, 132, 1)',
             borderWidth: 2,
             fill: false
@@ -65,10 +67,10 @@
     };
 
     var datosRadar = {
-        labels: ['Venta 1', 'Venta 2', 'Venta 3', 'Venta 4', 'Venta 5'],
+        labels: ['Financiamiento a Plazos','Leasing','Pago al Contado', 'Efectivo', 'Financiación bancaria'],
         datasets: [{
-            label: 'Ventas Anuales',
-            data: [10, 15, 7, 20, 12],
+            label: 'Tipos de Financiamientos ofrecidos',
+            data: [parseInt("{{ financiamientos_plazos }}"), parseInt("{{ financiamientos_contado }}}"),parseInt("{{ financiamientos_leasing }}"),7,6],
             backgroundColor: 'rgba(255, 206, 86, 0.2)',
             borderColor: 'rgba(255, 206, 86, 1)',
             borderWidth: 1
@@ -76,18 +78,30 @@
     };
 
     var datosDonut = {
-        labels: ['Producto A', 'Producto B', 'Producto C'],
+        labels: [
+            {% for vendedor in vendedores_mas_transacciones %}
+                '{{ vendedor.nombre }} {{ vendedor.apellido }}',
+            {% endfor %}
+        ],
         datasets: [{
-            data: [30, 50, 20],
-            backgroundColor: ['rgba(255, 99, 132, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(255, 206, 86, 0.8)'],
+            data: [
+                {% for vendedor in vendedores_mas_transacciones %}
+                    {{ vendedor.num_transacciones }},
+                {% endfor %}
+            ],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                // Agrega más colores si tienes más vendedores
+            ],
         }]
     };
-
     var datosPolar = {
-        labels: ['Categoria 1', 'Categoria 2', 'Categoria 3', 'Categoria 4', 'Categoria 5'],
+       labels: ['Financiamiento a Plazos','Leasing','Pago al Contado', 'Efectivo', 'Financiación bancaria'],
         datasets: [{
             label: 'Datos de Polar',
-            data: [12, 19, 3, 5, 2],
+            data: [parseInt("{{ financiamientos_plazos }}"), parseInt("{{ financiamientos_contado }}}"),parseInt("{{ financiamientos_leasing }}"),7,6],
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
@@ -109,12 +123,7 @@
         options: {}
     });
 
-    var ctxRadar = document.getElementById('graficoRadar').getContext('2d');
-    var chartRadar = new Chart(ctxRadar, {
-        type: 'radar',
-        data: datosRadar,
-        options: {}
-    });
+ 
 
     var ctxDonut = document.getElementById('graficoDonut').getContext('2d');
     var chartDonut = new Chart(ctxDonut, {
