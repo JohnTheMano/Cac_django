@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login,logout
 from django.conf import settings
 from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required,permission_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponse
 from django.urls import reverse
@@ -14,6 +14,8 @@ from .forms import AltaVendedorModelForm, AltaCompradoModelForm, AltaVehiculoMod
 from django.views.generic import CreateView, ListView, DeleteView, UpdateView, View
 #from django.views.generic.list import ListView
 from django.urls import reverse_lazy
+from datetime import datetime
+from django.db.models import Count
 
 
 
@@ -206,7 +208,7 @@ class CompradorDeleteView(DeleteView):
     success_url = reverse_lazy('compradores_listado')
 
 #-------------------------------VEHICULOS-------------------------
-class VehiculoCreateView(LoginRequiredMixin,CreateView):
+class VehiculoCreateView(CreateView):
     model = Vehiculo
     form_class = AltaVehiculoModelForm
     template_name='core/alta_auto.html'
@@ -219,13 +221,13 @@ class VehiculosListView(ListView):
    
     
 
-class VehiculoDeleteView(LoginRequiredMixin,DeleteView):
+class VehiculoDeleteView(DeleteView):
     model = Vehiculo
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/vehiculo_confirm_delete.html' 
     success_url = reverse_lazy('vehiculos_listado')
 
-class VehiculoUpdateView(LoginRequiredMixin,UpdateView):
+class VehiculoUpdateView(UpdateView):
     model = Vehiculo
     fields = [ 
         "anio", 

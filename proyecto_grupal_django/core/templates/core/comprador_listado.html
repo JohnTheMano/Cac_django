@@ -14,13 +14,13 @@
               <p class="card-text"><strong>DNI:</strong> {{ comprador.dni }}</p>
               <p class="card-text"><strong>Email:</strong> {{ comprador.email }}</p>
               <p class="card-text"><strong>Vehiculos favoritos:</strong></p>
-              <ul>
+              <!-- <ul>
                 {% for vehiculo in comprador.vehiculos_favoritos.all %}
                   <li>{{ vehiculo.marca }}</li>
                 {% empty %}
                   <li>No hay vehículos favoritos.</li>
                 {% endfor %}
-              </ul>
+              </ul> -->
               <p class="card-text"><strong>Preferencias de financiamiento:</strong> {{ comprador.preferencias_financiamiento }}</p>
             </div>
             <div class="card-footer">
