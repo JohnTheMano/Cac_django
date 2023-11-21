@@ -335,3 +335,19 @@ def oferta_dia(request):
     }
     print(context)
     return render(request, 'core/oferta_del_dia.html', context)
+
+def auto_Okm(request):
+    vehiculos_0km= Vehiculo.objects.filter(tipo='0KM')
+    context = {
+        'vehiculos_0km': vehiculos_0km,
+    }
+    
+    return render(request, 'core/0km.html', context)
+
+def usados(request):
+    vehiculos_usados= Vehiculo.objects.filter(tipo='0KM')
+    context = {
+        'vehiculos_usados': vehiculos_usados,
+    }
+    
+    return render(request, 'core/usados.html', context)

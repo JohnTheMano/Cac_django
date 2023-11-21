@@ -6,19 +6,18 @@
     <ul class="list-group">
       {% for venta in listado_ventas %}
         <li class="list-group-item">
+          {% if venta.vehiculo.imagen %}
+              <img src="{{ venta.vehiculo.imagen.url }}" class="img-fluid rounded" alt="Imagen del vehículo" style="max-width: 300px; max-height: 150px;">
+            {% endif %}
           <h4>{{ venta.vehiculo }} {{ venta.metodo_pago }}</h4>
           <p><strong>Vendedor:</strong> {{ venta.vendedor }}</p>
           <p><strong>Comprador:</strong> {{ venta.comprador }}</p>
           <p><strong>Precio: </strong> {{ venta.vehiculo.precio }}</p>
-          <p><strong>fecha:</strong> {{venta.fecha_transaccion }}</p>
-          
-          <p><strong>Estado: </strong> {{venta.estado_transaccion }}</p>
+          <p><strong>Fecha:</strong> {{ venta.fecha_transaccion }}</p>
+          <p><strong>Estado: </strong> {{ venta.estado_transaccion }}</p>
           <form method="post">
             {% csrf_token %}
-            
-            
           </form>
-         
         </li>
       {% empty %}
         <li class="list-group-item">No hay ventas realizadas.</li>
@@ -26,3 +25,4 @@
     </ul>
   </div>
 {% endblock %}
+

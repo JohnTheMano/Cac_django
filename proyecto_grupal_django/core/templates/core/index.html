@@ -1,34 +1,38 @@
-
 {% extends 'core/base.html' %}
 {% load static %}
 
 {% block extra_css %} 
-<!-- <link rel="stylesheet" href="{% static 'core/css/index.css' %}"> -->
+<link rel="stylesheet" href="{% static 'core/css/index.css' %}">
+
 {% endblock %}
 
-{% block title %}index{% endblock %}
-
-
+{% block title %}Index{% endblock %}
 
 {% block content %} 
-<div id="carouselExample" class="carousel slide">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="../../static/core/img/Ford.png" class="d-block w-100" alt="Descripción de la imagen" width="450" height="500">>
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'core/img/Ford.png' %}" class="d-block w-100" alt="Descripción de la imagen">
+      <div class="carousel-caption">
+        <h1>Descubre las mejores ofertas en vehículos</h1>
+        <p>Explora nuestra selección y encuentra el coche perfecto para ti.</p>
       </div>
-      <div class="carousel-item">
-        <img src="../../static/core/img/Ford.png" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'core/img/Ford.png' %}" class="d-block w-100" alt="...">
+      <div class="carousel-caption">
+        <h1>Encuentra el vehículo que se adapte a tu estilo de vida</h1>
+        <p>Explora nuestras ofertas exclusivas y descubre tu próximo coche.</p>
       </div>
-      
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
+    </div>
   </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 {% endblock %}
-
-

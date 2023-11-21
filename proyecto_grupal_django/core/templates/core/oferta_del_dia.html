@@ -13,21 +13,24 @@
     {% if vehiculo_oferta %}
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <h2 class="my-4">Oferta del día</h2>
+                <h2 class="my-4 text-center">¡Oferta del día!</h2>
                 <div class="card">
+                    <img src="{{ vehiculo_oferta.imagen.url }}" class="card-img-top" alt="Imagen del vehículo" style="max-width: 100%; height: auto;">
                     <div class="card-body">
-                        <p class="card-text"><strong>Marca:</strong> {{ vehiculo_oferta.marca }}</p>
-                        <p class="card-text"><strong>Modelo:</strong> {{ vehiculo_oferta.modelo }}</p>
+                        <h5 class="card-title">{{ vehiculo_oferta.marca }} - {{ vehiculo_oferta.modelo }}</h5>
                         <p class="card-text"><strong>Año:</strong> {{ vehiculo_oferta.anio }}</p>
                         <p class="card-text"><strong>Tipo:</strong> {{ vehiculo_oferta.tipo }}</p>
                         <p class="card-text"><strong>Precio:</strong> ${{ vehiculo_oferta.precio }}</p>
                         <p class="card-text"><strong>Descripción:</strong> {{ vehiculo_oferta.descripcion }}</p>
                     </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Vendedor: {{ vehiculo_oferta.vendedor }}</small>
+                    </div>
                 </div>
             </div>
         </div>
     {% else %}
-        <p class="mt-4">No hay vehículos disponibles en este momento.</p>
+        <p class="mt-4 text-center">No hay vehículos disponibles en este momento.</p>
     {% endif %}
 </div>
 

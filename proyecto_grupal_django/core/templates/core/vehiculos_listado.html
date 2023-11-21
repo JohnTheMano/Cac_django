@@ -3,34 +3,35 @@
 {% block content %}
   <div class="container">
     <h1 class="my-4">Listado de Vehículos </h1>
-    <ul class="list-group">
+    <div class="row">
       {% for vehiculo in listado_vehiculos %}
-        <li class="list-group-item">
-            <h4>{{ vehiculo.nombre}} - {{ vehiculo.año }}</h4>
-          <h4>{{ vehiculo.marca }} - {{ vehiculo.modelo }}</h4>
-          <p><strong>Año:</strong> {{ vehiculo.anio }}</p>
-          <p><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
-          <p><strong>Precio:</strong> ${{ vehiculo.precio }}</p>
-          <p><strong>Descripción:</strong> {{ vehiculo.descripcion }}</p>
-          <p><strong>Vendedor:</strong> {{ vehiculo.vendedor }}</p>
-          <form method="post">
-            {% csrf_token %}
-            
-            <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
-            <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
-
-            <a href="{% url 'comprar_vehiculo' vehiculo.pk %}" class="btn btn-primary">Comprar</a>
-
-            
-
-
-            
-          </form>
-
-        </li>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            {% if vehiculo.imagen %}
+              <img src="{{ vehiculo.imagen.url }}" class="card-img-top" alt="Imagen del vehículo">
+            {% endif %}
+            <div class="card-body">
+              <h5 class="card-title">{{ vehiculo.marca }} - {{ vehiculo.anio }}</h5>
+              <p class="card-text"><strong>Marca:</strong> {{ vehiculo.marca }} - {{ vehiculo.modelo }}</p>
+              <p class="card-text"><strong>Año:</strong> {{ vehiculo.anio }}</p>
+              <p class="card-text"><strong>Tipo:</strong> {{ vehiculo.tipo }}</p>
+              <p class="card-text"><strong>Precio:</strong> ${{ vehiculo.precio }}</p>
+              <p class="card-text"><strong>Descripción:</strong> {{ vehiculo.descripcion }}</p>
+              <p class="card-text"><strong>Vendedor:</strong> {{ vehiculo.vendedor }}</p>
+              <form method="post">
+                {% csrf_token %}
+                <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
+                <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'comprar_vehiculo' vehiculo.pk %}" class="btn btn-primary">Comprar</a>
+              </form>
+            </div>
+          </div>
+        </div>
       {% empty %}
-        <li class="list-group-item text-muted">No hay vehículos disponibles.</li>
+        <div class="col-12">
+          <p class="text-muted">No hay vehículos disponibles.</p>
+        </div>
       {% endfor %}
-    </ul>
+    </div>
   </div>
 {% endblock %}

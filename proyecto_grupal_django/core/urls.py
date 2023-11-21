@@ -1,6 +1,8 @@
 from django.urls import path, re_path
 from . import views
 from .views import ReportesView
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -31,5 +33,7 @@ urlpatterns = [
     path('vehiculos/comprar_vehiculo/<int:vehiculo_id>/', views.comprar_vehiculo, name='comprar_vehiculo'),
     path('vehiculos/ventas_listado', views.VentasListView.as_view(), name="ventas_listado"),
     path('vehiculos/reportes',ReportesView.as_view() , name="reportes"),
+    path('vehiculos/0km',views.auto_Okm , name="0km"),
+    path('vehiculos/usados',views.usados , name="usados"),
     
-    ]
+    ] 

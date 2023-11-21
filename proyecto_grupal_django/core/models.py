@@ -105,6 +105,7 @@ class Vehiculo(models.Model):
     tipo = models.CharField(max_length=20,choices=tipo_auto)
     precio = models.DecimalField(max_digits=10, decimal_places=2)
     descripcion = models.TextField()
+    imagen = models.ImageField(upload_to='vehiculos/', null=True, blank=True)
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
     def __str__(self):
         return f" {self.marca} - {self.modelo} - {self.anio}"

@@ -1,0 +1,29 @@
+#carouselExample {
+    max-height: 500px;
+    overflow: hidden;
+  }
+
+  .carousel-item img {
+    object-fit: cover;
+    max-height: 500px;
+  }
+
+  .carousel-caption {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  }
+
+  .carousel-caption h1 {
+    font-size: 3em;
+    font-weight: bold;
+  }
+
+  .carousel-control-prev, .carousel-control-next {
+    width: 5%;
+  }
+
+  

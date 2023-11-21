@@ -16,24 +16,27 @@
     
     {% block extra_css %} {% endblock %}
 </head>
+
+
 <body>
-  
-    <header>
+    <header class="bg-dark text-white" style="margin-bottom: 0;">
         {% block section_title %} 
             <div class="container text-center my-4">
                 <div class="row">
                     <div class="col-md-15">
                         <div class="jumbotron">
-                            {%block pi%}
-                            <h1 class="display-4">Bienvenido a Venta Motorix</h1>
-                            {%endblock%}
+                            <img src="{% static 'core/img/logo.png' %}" alt="Logo de Venta Motorix" class="img-fluid mb-3" style="max-width: 150px;">
+                            {% block pi %}
+                                <h1 class="display-4">Bienvenido a Venta Motorix</h1>
+                                <p class="lead">Encontrá el vehículo de tus sueños con nosotros.</p>
+                            {% endblock %}
                         </div>
                     </div>
                 </div>
             </div>
         {% endblock %}
-
     </header>
+    
     {% include 'core/navbar.html' %}
    
       
