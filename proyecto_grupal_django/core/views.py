@@ -140,7 +140,7 @@ def registrar_venta(request):
     return render( request ,'core/vende_tu_auto.html',context )
 
 #------Vendedor----------------------
-class VendedorCreateView(PermissionRequiredMixin,CreateView):
+class VendedorCreateView(CreateView):
     permission_required = ""
     model = Vendedor
     form_class = AltaVendedorModelForm
@@ -184,7 +184,7 @@ class VendedorDeleteView(PermissionRequiredMixin,DeleteView):
 
 
 #-------------------COMPRADOR--------------------
-class CompradorCreateView(PermissionRequiredMixin,CreateView):
+class CompradorCreateView(CreateView):
     permission_required = ""
     model = Comprador
     form_class = AltaCompradoModelForm

@@ -21,10 +21,13 @@
               <form method="post">
                 {% csrf_token %}
                 {% if user.is_authenticated %} 
-                  <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
-                  <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
                   <a href="{% url 'comprar_vehiculo' vehiculo.pk %}" class="btn btn-primary">Comprar</a>
                 {% endif %}
+                  {% if user.is_authenticated and user.has_perms %} 
+                    <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
+                    <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
+                  {% endif %}
+                
               </form>
             </div>
           </div>
