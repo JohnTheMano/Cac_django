@@ -22,11 +22,11 @@
                   Vendé tu auto
                 </a>
                 <ul class="dropdown-menu">
-                  {% if user.is_authenticated %} 
-                  <li><a class="dropdown-item" href="{% url 'alta_auto' %}">Publicar Auto</a></li>
+                  {% if user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'alta_auto' %}">Publicar Auto</a></li>
                   {% endif %}
                   <li><a class="dropdown-item" href="{% url 'alta_vendedor'%}">Registrate como vendedor</a></li>
-                  {% if user.is_authenticated %}
+                  {% if user.is_authenticated and user.has_perms %} 
                     <li><a class="dropdown-item" href="{% url 'vendedores_listado'%}">Listado de vendedores</a></li>
                   {% endif %}
                   <li><hr class="dropdown-divider"></li>
@@ -41,7 +41,7 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'vehiculos_listado'%}">Lista de Vehiculos</a></li>
                   <li><a class="dropdown-item" href="{% url 'alta_comprador'%}">Registrate como comprador</a></li>
-                  {% if user.is_authenticated %}
+                  {% if user.is_authenticated and user.has_perms %} 
                     <li><a class="dropdown-item" href="{% url 'compradores_listado'%}">Listado de compradores</a></li>
                   {% endif %}
                   <li><hr class="dropdown-divider"></li>

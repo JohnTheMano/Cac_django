@@ -75,32 +75,16 @@ def vehiculos_todos(request):
 
     return render(request, 'core/vehiculos_listado.html', context)
 
+
 def vehiculos_anio(request, anio):
-     
-   
-    vehiculos = [
-        {'nombre': 'Renault Sandero Stepway', 'año': 2020},
-        {'nombre': 'Peugeot 208', 'año': 2021},
-        {'nombre': 'Volkswagen Tuareg', 'año': 2021},
-        {'nombre': 'Mitsubishi Colt', 'año': 2023},
-        {'nombre': 'Ford ka', 'año': 2023}]
-
-   
-    vehiculos_filtrados = []
-
-    
-    for vehiculo in vehiculos:
-        
-        if vehiculo.get('año') == int(anio):
-            
-            vehiculos_filtrados.append(vehiculo)
+    vehiculos_filtrados = Vehiculo.objects.filter(anio=int(anio))
 
     context = {
         'listado_vehiculos': vehiculos_filtrados,
         'anio_parametro': anio
     }
 
-    return render(request, 'core/vehiculos_listado.html', context)
+    return render(request, 'core/vehiculos_año.html', context)
     
 def vehiculos_estado(request,estado):
     return HttpResponse(
@@ -141,6 +125,7 @@ def registrar_venta(request):
 
 #------Vendedor----------------------
 class VendedorCreateView(CreateView):
+    permission_required = ""
     model = Vendedor
     form_class = AltaVendedorModelForm
     template_name='core/alta_vendedor.html'
@@ -148,7 +133,8 @@ class VendedorCreateView(CreateView):
     
     #fields = '__all__'
 
-class VendedorUpdateView(UpdateView):
+class VendedorUpdateView(PermissionRequiredMixin,UpdateView):
+    permission_required = ""
     model = Vendedor
     template_name='core/vendedor_update.html'
     form_class = AltaVendedorModelForm
@@ -156,13 +142,15 @@ class VendedorUpdateView(UpdateView):
 
 
     
-class VendedorListView(ListView):
+class VendedorListView(PermissionRequiredMixin,ListView):
+    permission_required = 'core.view_vendedor'
     model = Vendedor
     context_object_name = 'listado_vendedor'
     template_name='core/vendedor_listado.html'
     #queryset= Vendedor.objects.filter(tipo_vendedor= "Persona")
     
-class VendedorDeleteView(DeleteView):
+class VendedorDeleteView(PermissionRequiredMixin,DeleteView):
+    permission_required = ""
     model = Vendedor
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/vendedor_confirm_delete.html' 
@@ -181,34 +169,38 @@ class VendedorDeleteView(DeleteView):
 
 #-------------------COMPRADOR--------------------
 class CompradorCreateView(CreateView):
+    permission_required = ""
     model = Comprador
     form_class = AltaCompradoModelForm
     template_name='core/alta_Comprador.html'
     success_url='registro_exitoso'
 
-class CompradorUpdateView(UpdateView):
+class CompradorUpdateView(PermissionRequiredMixin,UpdateView):
+    permission_required = ""
     model = Comprador
     template_name='core/comprador_update.html'
     form_class = AltaCompradoModelForm
     success_url = reverse_lazy('compradores_listado')
 
 
-class CompradorListView(ListView):
+class CompradorListView(PermissionRequiredMixin, ListView):
+    permission_required = 'core.view_comprador'
     model = Comprador
     context_object_name = 'listado_comprador'
-    permission_required = 'cac.puede_ver_lista'
     template_name='core/comprador_listado.html'
     #queryset= Vendedor.objects.filter(tipo_vendedor= "Persona")
 
     
-class CompradorDeleteView(DeleteView):
+class CompradorDeleteView(PermissionRequiredMixin,DeleteView):
+    permission_required = ""
     model = Comprador
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/comprador_confirm_delete.html' 
     success_url = reverse_lazy('compradores_listado')
 
 #-------------------------------VEHICULOS-------------------------
-class VehiculoCreateView(CreateView):
+class VehiculoCreateView(PermissionRequiredMixin,CreateView):
+    permission_required = 'core.add_vehiculo'
     model = Vehiculo
     form_class = AltaVehiculoModelForm
     template_name='core/alta_auto.html'
@@ -221,13 +213,15 @@ class VehiculosListView(ListView):
    
     
 
-class VehiculoDeleteView(DeleteView):
+class VehiculoDeleteView(PermissionRequiredMixin,DeleteView):
+    permission_required = ""
     model = Vehiculo
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/vehiculo_confirm_delete.html' 
     success_url = reverse_lazy('vehiculos_listado')
 
-class VehiculoUpdateView(UpdateView):
+class VehiculoUpdateView(PermissionRequiredMixin,UpdateView):
+    permission_required = ""
     model = Vehiculo
     fields = [ 
         "anio", 

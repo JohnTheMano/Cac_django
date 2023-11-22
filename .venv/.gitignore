@@ -1,0 +1,8 @@
+*.pyc
+.venv/
+# Ignorar la carpeta __pycache__ y archivos generados por Python
+core/__pycache__/
+/__pycache__/
+*.pyc
+*.pyo
+proyecto_grupal_django/__pycache__/

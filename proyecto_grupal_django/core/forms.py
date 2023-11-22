@@ -38,7 +38,11 @@ class AltaVehiculoModelForm(forms.ModelForm):
             'tipo' : forms.Select(attrs={'class': 'form-control form-control-sm'}),
             'precio' : forms.NumberInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'precio'}),
             'descripcion' : forms.TextInput(attrs={'class': 'form-control form-control-sm', 'placeholder': 'descripcion'}),
-            'vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'})}
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'vendedor': forms.Select(attrs={'class': 'form-control form-control-sm'})},
+            
+        
+        
 
 
 class AltaVendedorModelForm(forms.ModelForm):
