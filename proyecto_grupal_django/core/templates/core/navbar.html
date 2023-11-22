@@ -26,7 +26,7 @@
                     <li><a class="dropdown-item" href="{% url 'alta_auto' %}">Publicar Auto</a></li>
                   {% endif %}
                   <li><a class="dropdown-item" href="{% url 'alta_vendedor'%}">Registrate como vendedor</a></li>
-                  {% if user.is_authenticated and user.has_perms %} 
+                  {% if user.is_authenticated %} 
                     <li><a class="dropdown-item" href="{% url 'vendedores_listado'%}">Listado de vendedores</a></li>
                   {% endif %}
                   <li><hr class="dropdown-divider"></li>
@@ -41,7 +41,7 @@
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'vehiculos_listado'%}">Lista de Vehiculos</a></li>
                   <li><a class="dropdown-item" href="{% url 'alta_comprador'%}">Registrate como comprador</a></li>
-                  {% if user.is_authenticated and user.has_perms %} 
+                  {% if user.is_authenticated  %} 
                     <li><a class="dropdown-item" href="{% url 'compradores_listado'%}">Listado de compradores</a></li>
                   {% endif %}
                   <li><hr class="dropdown-divider"></li>
@@ -56,31 +56,28 @@
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'ficha_vehiculo' %}">Ofertas del Dia</a>
               </li>
-              <li class="nav-item">
-                {% if user.is_authenticated %}
-                <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url 'ventas_listado' %}">Listado transacciones</a>
-                <li>
-                {% endif %}
-                  <div class="actions">
-                    {% if not user.is_authenticated %}
-                        <a href="{% url 'login' %}">Login</a>
-                    {% else %}
-                        <p>Bienvenid@ <b>{{user.username}}</b></p>
-                        <a class="logout" href="{% url 'logout' %}">Logout</a>
-                    {% endif %}
+              <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <!-- ... tus otros elementos del menú ... -->
+                          <li class="nav-item">
+                              {% if not user.is_authenticated %}
+                                  <a class="nav-link" href="{% url 'login' %}">Login</a>
+                              {% else %}
+                                  <p class="nav-link">
+                                      <span>Bienvenid@ <b>{{user.username}}</b></span>
+                                      <a class="nav-link logout" href="{% url 'logout' %}">Logout</a>
+                                  </p>
+                              {% endif %}
+                            </li>
+                        </ul>
+                <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+              </form>
+                    </div>
                 </div>
-                </li>
-              
-            
-            </ul>
-            <form class="d-flex" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+            </nav>
 </body>
 </html>
