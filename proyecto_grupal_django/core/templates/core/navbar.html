@@ -30,7 +30,8 @@
                   {% if not user.is_authenticated %}
                     <li><a class="dropdown-item" href="{% url 'alta_vendedor'%}">Registrate como vendedor</a></li>
                   {% endif %}
-                  {% if user.is_authenticated and perms.core.view_vendedor %} 
+                  <li><a class="dropdown-item" href="{% url 'alta_vendedor'%}">Registrate como vendedor</a></li>
+                  {% if user.is_authenticated %} 
                     <li><a class="dropdown-item" href="{% url 'vendedores_listado'%}">Listado de vendedores</a></li>
                   {% endif %}
                   <!-- <li><hr class="dropdown-divider"></li>
@@ -44,10 +45,8 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="{% url 'vehiculos_listado'%}">Lista de Vehiculos</a></li>
-                  {% if not user.is_authenticated %}
-                    <li><a class="dropdown-item" href="{% url 'alta_comprador'%}">Registrate como comprador</a></li>
-                  {% endif %}
-                  {% if user.is_authenticated and perms.core.view_compradores %} 
+                  <li><a class="dropdown-item" href="{% url 'alta_comprador'%}">Registrate como comprador</a></li>
+                  {% if user.is_authenticated and user.has_perms %} 
                     <li><a class="dropdown-item" href="{% url 'compradores_listado'%}">Listado de compradores</a></li>
                   {% endif %}
                   <li><hr class="dropdown-divider"></li>
@@ -64,14 +63,14 @@
               </li>
               <li class="nav-item">
                 {% if user.is_authenticated %}
-                  <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url 'ventas_listado' %}">Listado transacciones</a>
-                  <li>
+                <a class="nav-link" href="{% url 'reportes' %}">Reportes</a>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'ventas_listado' %}">Listado transacciones</a>
+                <li>
                 {% endif %}
                   <div class="actions">
                     {% if not user.is_authenticated %}
-                      <a href="{% url 'login' %}">Login</a>
+                        <a href="{% url 'login' %}">Login</a>
                     {% else %}
                         <p>Bienvenid@ <b>{{user.username}}</b></p>
                         <a class="logout" href="{% url 'logout' %}">Logout</a>
