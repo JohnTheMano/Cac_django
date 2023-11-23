@@ -20,10 +20,10 @@
               <p class="card-text"><strong>Vendedor:</strong> {{ vehiculo.vendedor }}</p>
               <form method="post">
                 {% csrf_token %}
-                {% if user.is_authenticated %} 
+                {% if user.is_authenticated and perms.core.view_comprador %} 
                   <a href="{% url 'comprar_vehiculo' vehiculo.pk %}" class="btn btn-primary">Comprar</a>
                 {% endif %}
-                  {% if user.is_authenticated and user.has_perms %} 
+                  {% if user.is_authenticated and perms.core.delete_vehiculo %} 
                     <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
                     <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
                   {% endif %}

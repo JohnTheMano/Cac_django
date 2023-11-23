@@ -13,7 +13,7 @@
           <p><strong>Financiamiento Ofrecido:</strong> {{ vendedor.financiamiento_ofrecido }}</p>
           <form method="post">
             {% csrf_token %}
-            {% if user.is_authenticated and user.has_perms %} 
+            {% if user.is_authenticated and perms.core.delete_vendedor %} 
              <a href="{% url 'vendedor_eliminar' vendedor.pk %}" class="btn btn-danger">Eliminar</a>
              <a href="{% url 'vendedor_actualizar' vendedor.pk %}" class="btn btn-primary">Editar</a>
             {% endif %}

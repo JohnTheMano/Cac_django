@@ -134,7 +134,7 @@ class VendedorCreateView(CreateView):
     #fields = '__all__'
 
 class VendedorUpdateView(PermissionRequiredMixin,UpdateView):
-    permission_required = ""
+    permission_required = 'core.change_vendedor'
     model = Vendedor
     template_name='core/vendedor_update.html'
     form_class = AltaVendedorModelForm
@@ -142,7 +142,7 @@ class VendedorUpdateView(PermissionRequiredMixin,UpdateView):
 
 
     
-class VendedorListView(PermissionRequiredMixin,ListView):
+class VendedorListView(PermissionRequiredMixin, ListView):
     permission_required = 'core.view_vendedor'
     model = Vendedor
     context_object_name = 'listado_vendedor'
@@ -150,7 +150,7 @@ class VendedorListView(PermissionRequiredMixin,ListView):
     #queryset= Vendedor.objects.filter(tipo_vendedor= "Persona")
     
 class VendedorDeleteView(PermissionRequiredMixin,DeleteView):
-    permission_required = ""
+    permission_required =  'core.delete_vendedor'
     model = Vendedor
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/vendedor_confirm_delete.html' 
@@ -169,14 +169,14 @@ class VendedorDeleteView(PermissionRequiredMixin,DeleteView):
 
 #-------------------COMPRADOR--------------------
 class CompradorCreateView(CreateView):
-    permission_required = ""
+    permission_required = 'core.add_comprador'
     model = Comprador
     form_class = AltaCompradoModelForm
     template_name='core/alta_Comprador.html'
     success_url='registro_exitoso'
 
 class CompradorUpdateView(PermissionRequiredMixin,UpdateView):
-    permission_required = ""
+    permission_required = 'core.change_comprador'
     model = Comprador
     template_name='core/comprador_update.html'
     form_class = AltaCompradoModelForm
@@ -192,14 +192,14 @@ class CompradorListView(PermissionRequiredMixin, ListView):
 
     
 class CompradorDeleteView(PermissionRequiredMixin,DeleteView):
-    permission_required = ""
+    permission_required = 'core.delete_comprador'
     model = Comprador
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/comprador_confirm_delete.html' 
     success_url = reverse_lazy('compradores_listado')
 
 #-------------------------------VEHICULOS-------------------------
-class VehiculoCreateView(PermissionRequiredMixin,CreateView):
+class VehiculoCreateView(PermissionRequiredMixin, CreateView):
     permission_required = 'core.add_vehiculo'
     model = Vehiculo
     form_class = AltaVehiculoModelForm
@@ -214,14 +214,14 @@ class VehiculosListView(ListView):
     
 
 class VehiculoDeleteView(PermissionRequiredMixin,DeleteView):
-    permission_required = ""
+    permission_required = 'core.delete_vehiculo'
     model = Vehiculo
     #el nombre de la plantilla es por defecto de django
     template_name = 'core/vehiculo_confirm_delete.html' 
     success_url = reverse_lazy('vehiculos_listado')
 
 class VehiculoUpdateView(PermissionRequiredMixin,UpdateView):
-    permission_required = ""
+    permission_required = 'core.change_vehiculo'
     model = Vehiculo
     fields = [ 
         "anio", 
