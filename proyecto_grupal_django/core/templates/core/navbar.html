@@ -18,11 +18,11 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'index' %}">Home</a>
               </li>              
               <li class="nav-item dropdown">
-                {% if user.is_authenticated and perms.core.view_vendedor %} 
+                
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Vendé tu auto
                 </a>
-                {% endif %}
+                
                 <ul class="dropdown-menu">
                   {% if user.is_authenticated and perms.core.add_vehiculo %}
                     <li><a class="dropdown-item" href="{% url 'alta_auto' %}">Publicar Auto</a></li>
@@ -30,8 +30,7 @@
                   {% if not user.is_authenticated %}
                     <li><a class="dropdown-item" href="{% url 'alta_vendedor'%}">Registrate como vendedor</a></li>
                   {% endif %}
-                  <li><a class="dropdown-item" href="{% url 'alta_vendedor'%}">Registrate como vendedor</a></li>
-                  {% if user.is_authenticated %} 
+                  {% if user.is_authenticated and perms.core.view_vendedor %} 
                     <li><a class="dropdown-item" href="{% url 'vendedores_listado'%}">Listado de vendedores</a></li>
                   {% endif %}
                   <!-- <li><hr class="dropdown-divider"></li>
