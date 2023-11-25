@@ -2,10 +2,10 @@
 {% block title %}Listado Vehículos{% endblock %}
 {% block content %}
   <div class="container">
-    <h1 class="my-4">Listado de Vehículos </h1>
-    <div class="row">
+    <h1 class="my-4">Listado de Vehículos</h1>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
       {% for vehiculo in vehiculos_listado %}
-        <div class="col-md-4 mb-4">
+        <div class="col mb-4">
           <div class="card">
             {% if vehiculo.imagen %}
               <img src="{{ vehiculo.imagen.url }}" class="card-img-top" alt="Imagen del vehículo">
@@ -23,21 +23,20 @@
                 {% if user.is_authenticated and perms.core.view_comprador %} 
                   <a href="{% url 'comprar_vehiculo' vehiculo.pk %}" class="btn btn-primary">Comprar</a>
                 {% endif %}
-                  {% if user.is_authenticated %} 
-                  {% if user.is_authenticated and perms.core.delete_vehiculo %} 
-                    <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
-                    <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
-                  {% endif %}
-                
+                {% if user.is_authenticated and perms.core.delete_vehiculo %} 
+                  <a href="{% url 'vehiculo_eliminar' vehiculo.pk %}" class="btn btn-danger">Eliminar</a>
+                  <a href="{% url 'vehiculo_update' vehiculo.pk %}" class="btn btn-primary">Editar</a>
+                {% endif %}
               </form>
             </div>
           </div>
         </div>
-        {% endif %}
+      {% endfor %}
+      {% if vehiculos_listado|length == 0 %}
         <div class="col-12">
           <p class="text-muted">No hay vehículos disponibles.</p>
         </div>
-      {% endfor %}
+      {% endif %}
     </div>
   </div>
 {% endblock %}

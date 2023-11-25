@@ -78,10 +78,12 @@ def vehiculos_todos(request):
 
 def vehiculos_anio(request, anio):
     vehiculos_filtrados = Vehiculo.objects.filter(anio=int(anio))
+    
 
     context = {
-        'listado_vehiculos': vehiculos_filtrados,
-        'anio_parametro': anio
+        'vehiculos_filtrados': vehiculos_filtrados,
+        'anio_parametro': anio,
+        
     }
 
     return render(request, 'core/vehiculos_año.html', context)
