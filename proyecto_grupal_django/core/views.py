@@ -290,14 +290,17 @@ def comprar_vehiculo(request, vehiculo_id):
 
     return render(request, 'core/alta_transaccion.html', context)
 
-class VentasListView(ListView):
+class VentasListView(PermissionRequiredMixin,ListView):
+    permission_required = 'core.view_transaccion'
     model = Transaccion
     context_object_name = 'listado_ventas'
     template_name='core/ventas_listado.html'
     
 #------------------------Reportes----------------------------------------
-class ReportesView(View):
+class ReportesView(PermissionRequiredMixin,View):
+    permission_required = 'core.view_reporte'
     template_name = 'core/reportes.html'
+    
 
     def get(self, request, *args, **kwargs):
         # Lógica para obtener los datos necesarios para los gráficos

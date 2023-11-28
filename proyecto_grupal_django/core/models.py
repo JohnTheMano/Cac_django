@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -99,16 +100,28 @@ class Vehiculo(models.Model):
         ('Usado','Usado'),
         ('0KM', '0KM')
     ]
+       
+    def año_validation(value):
+        if not (value >= 1900 and value <=2024):
+            raise ValidationError('El año debe ser mayor al 1900 y menor al 2025')
+    
+    def clean_Precio(value):
+        if (value  <= 0):
+            raise ValidationError("El precio debe ser un número mayor a cero")
+        return value
+    
     marca = models.CharField(max_length=50,choices=listadoMarcas,)
     modelo = models.CharField(max_length=50)
-    anio = models.PositiveIntegerField()
+    anio = models.PositiveIntegerField(max_length=4, validators=[año_validation])
     tipo = models.CharField(max_length=20,choices=tipo_auto)
-    precio = models.DecimalField(max_digits=10, decimal_places=2)
+    precio = models.DecimalField(max_digits=10, decimal_places=2,validators=[clean_Precio])
     descripcion = models.TextField()
     imagen = models.ImageField(upload_to='vehiculos/', null=True, blank=True)
     vendedor = models.ForeignKey(Vendedor, on_delete=models.CASCADE)
     def __str__(self):
         return f" {self.marca} - {self.modelo} - {self.anio}"
+    
+    
 
 class Comprador(Persona):
     
